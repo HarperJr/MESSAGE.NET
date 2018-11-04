@@ -18,9 +18,9 @@ namespace Messanger
     {
 
         [WebMethod]
-        public string HelloWorld()
+        public String getHash()
         {
-            return "Привет всем!";
+            return "3e25960a79dbc69b674cd4ec67a72c62";
         }
     }
 }
