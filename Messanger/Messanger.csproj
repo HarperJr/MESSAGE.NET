@@ -149,7 +149,7 @@
   <ItemGroup>
     <Content Include="AuthService.asmx" />
     <Content Include="Content\material-components-min-web.css" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\stylesheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="NLog.config">
