@@ -16,11 +16,12 @@ namespace Messanger
     // [System.Web.Script.Services.ScriptService]
     public class AuthService : System.Web.Services.WebService
     {
-
         [WebMethod]
-        public String getHash()
-        {
-            return "3e25960a79dbc69b674cd4ec67a72c62";
+        public void Authorize() {
+
         }
+
+
+      
     }
 }
