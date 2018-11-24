@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Messanger.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,12 @@ namespace Messanger.Controllers
      **/
     public class HomeController : Controller
     {
+        private readonly ContactRepository _contactRepository;
+
+        public HomeController() {
+            _contactRepository = DependencyResolver.Current.GetService<ContactRepository>();
+        }
+
         // GET: Home
         public ActionResult Index()
         {

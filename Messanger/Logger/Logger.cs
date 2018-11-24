@@ -2,7 +2,7 @@
 {
     public interface ILogger { 
   
-        void Log(NLog.LogLevel level, string message);
+        void Log(LogLevel level, string message);
     }
 
     public interface ILogFactory {
@@ -14,8 +14,8 @@
 
         private static NLog.ILogger _logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public void Log(NLog.LogLevel level, string message) {
-            _logger.Log(level, message);
+        public void Log(LogLevel level, string message) {
+            _logger.Log(NLog.LogLevel.FromOrdinal((int)level), message);
         }
     }
 
@@ -35,5 +35,9 @@
         public ILogger GetLogger() {
             return new Logger();
         }
+    }
+
+    public enum LogLevel {
+        TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
     }
 }
