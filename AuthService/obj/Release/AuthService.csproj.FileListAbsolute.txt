@@ -1,0 +1,7 @@
+C:\Users\docto\Desktop\MESSAGE.NET\AuthService\bin\AuthService.dll.config
+C:\Users\docto\Desktop\MESSAGE.NET\AuthService\bin\AuthService.dll
+C:\Users\docto\Desktop\MESSAGE.NET\AuthService\bin\AuthService.pdb
+C:\Users\docto\Desktop\MESSAGE.NET\AuthService\obj\Release\AuthService.csprojResolveAssemblyReference.cache
+C:\Users\docto\Desktop\MESSAGE.NET\AuthService\obj\Release\AuthService.csproj.CoreCompileInputs.cache
+C:\Users\docto\Desktop\MESSAGE.NET\AuthService\obj\Release\AuthService.dll
+C:\Users\docto\Desktop\MESSAGE.NET\AuthService\obj\Release\AuthService.pdb
