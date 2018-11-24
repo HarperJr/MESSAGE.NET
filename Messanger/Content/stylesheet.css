@@ -1,0 +1,13 @@
+﻿body {
+   
+}
+
+.container {
+    margin: 0px;
+    padding: 0px;
+}
+
+.body-content {
+    display: flex;
+}
+

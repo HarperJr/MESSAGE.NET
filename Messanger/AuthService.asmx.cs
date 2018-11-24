@@ -16,11 +16,12 @@ namespace Messanger
     // [System.Web.Script.Services.ScriptService]
     public class AuthService : System.Web.Services.WebService
     {
-
         [WebMethod]
-        public string HelloWorld()
-        {
-            return "Привет всем!";
+        public void Authorize() {
+
         }
+
+
+      
     }
 }

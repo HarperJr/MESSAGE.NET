@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace Messanger.Controllers
 {
+    /**
+     * Main Controller
+     **/
     public class HomeController : Controller
     {
         // GET: Home
