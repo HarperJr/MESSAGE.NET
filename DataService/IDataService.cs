@@ -14,6 +14,9 @@ namespace DataService {
         [OperationContract]
         IEnumerable<Dialog> getDialogListByConsumerId(string consuemerId);
 
+        [OperationContract]
+        IEnumerable<Contact> getContactsByConsumerId(string consumerId);
+
     }
 
     [DataContract]
@@ -21,5 +24,12 @@ namespace DataService {
 
         [DataMember]
         public string DialogTitle { get; set; }
+    }
+
+    [DataContract]
+    public class Contact {
+
+        [DataMember]
+        public string ContactName { get; set; }
     }
 }
