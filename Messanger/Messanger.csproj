@@ -194,12 +194,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\DataService\Service1.wsdl" />
-    <Content Include="AsyncHandler.ashx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\async-request.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\material-components-min-web.js" />
@@ -224,14 +222,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="AsyncHandler.ashx.cs">
-      <DependentUpon>AsyncHandler.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="Http\Base\IHttpHandler.cs" />
-    <Compile Include="Http\ClientProcessor.cs" />
-    <Compile Include="Http\Connection.cs" />
-    <Compile Include="Http\HttpAsyncState.cs" />
-    <Compile Include="Http\ThreadPool.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Models\Consumer.cs" />
     <Compile Include="Models\Contact.cs" />
