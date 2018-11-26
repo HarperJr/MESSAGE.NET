@@ -17,10 +17,10 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>44373</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -147,26 +147,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\AuthService\AuthService.disco" />
-    <None Include="Connected Services\AuthService\configuration91.svcinfo" />
-    <None Include="Connected Services\AuthService\configuration.svcinfo" />
-    <Content Include="Connected Services\AuthService\Messanger.AuthService.CompositeType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Connected Services\AuthService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\DataService\DataService.disco" />
-    <None Include="Connected Services\DataService\configuration91.svcinfo" />
-    <None Include="Connected Services\DataService\configuration.svcinfo" />
-    <Content Include="Connected Services\DataService\Messanger.DataService.CompositeType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Connected Services\DataService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Content\material-components-min-web.css" />
     <Content Include="Content\stylesheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -174,26 +154,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Connected Services\AuthService\AuthService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AuthService\AuthService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AuthService\AuthService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\AuthService\Service1.wsdl" />
-    <None Include="Connected Services\DataService\DataService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DataService\DataService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DataService\DataService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DataService\Service1.wsdl" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -207,16 +167,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="Connected Services\AuthService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\DataService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -243,6 +193,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Auth\SignUp.cshtml" />
+    <Content Include="Views\Home\Dialogs.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -255,10 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\AuthService\" />
-    <WCFMetadataStorage Include="Connected Services\DataService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -278,8 +225,7 @@
           <IISUrl>http://localhost:56518/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:56518/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -110,9 +110,9 @@ C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\ru\System.Web.Webpages.Deployme
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\ru\System.Web.Webpages.Razor.resources.dll
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\ru\System.Web.Helpers.resources.dll
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\ru\System.Web.Mvc.resources.dll
-C:\Users\docto\Desktop\MESSAGE.NET\Messanger\obj\Debug\Messanger.csprojResolveAssemblyReference.cache
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.CoreCompileInputs.cache
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.CopyComplete
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\obj\Debug\Messanger.dll
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\obj\Debug\Messanger.pdb
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\NLog.config
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\obj\Debug\Messanger.csprojAssemblyReference.cache

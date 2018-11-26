@@ -1,4 +1,4 @@
-﻿using Messanger.DataService;
+﻿
 using Messanger.Models;
 using Messanger.Repositories.Base;
 using System;
@@ -12,10 +12,9 @@ namespace Messanger.Repositories {
 
         public static ContactRepository Instance { get; private set; }
 
-        private readonly IDataService _dataService;
 
-        public ContactRepository(IDataService dataService) {
-            _dataService = dataService;
+        public ContactRepository() {
+
         }
 
         public IEnumerable<Contact> GetConsumerContacts(Consumer consumer) {

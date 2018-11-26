@@ -8,12 +8,12 @@
     right: 0;
     flex-flow: row;"> 
 
-    <div class="mdc-card" style="
+    <div id="dialogs" class="mdc-card" style="
     flex-basis: 200px;
     flex: 2;">
-        
+       
     </div>
-    <div style="
+    <div id="content" style="
     margin-left: 20px;
     flex: 5;
     flex-direction: column">
@@ -28,4 +28,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#dialogs").load('@Url.Action("Dialogs", "Home", null, Request.Url.Scheme)?guid=42bc99d3-870a-4089-9990-fee0b35de80a');
+    });
+</script>
 

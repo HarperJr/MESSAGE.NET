@@ -1,7 +1,7 @@
 C:\Users\docto\Desktop\MESSAGE.NET\DataService\bin\DataService.dll.config
 C:\Users\docto\Desktop\MESSAGE.NET\DataService\bin\DataService.dll
 C:\Users\docto\Desktop\MESSAGE.NET\DataService\bin\DataService.pdb
-C:\Users\docto\Desktop\MESSAGE.NET\DataService\obj\Debug\DataService.csprojResolveAssemblyReference.cache
 C:\Users\docto\Desktop\MESSAGE.NET\DataService\obj\Debug\DataService.csproj.CoreCompileInputs.cache
 C:\Users\docto\Desktop\MESSAGE.NET\DataService\obj\Debug\DataService.dll
 C:\Users\docto\Desktop\MESSAGE.NET\DataService\obj\Debug\DataService.pdb
+C:\Users\docto\Desktop\MESSAGE.NET\DataService\obj\Debug\DataService.csprojAssemblyReference.cache

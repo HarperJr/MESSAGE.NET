@@ -1,4 +1,10 @@
-.vs
-packages
-Messanger/scripts
-Messanger/fonts
+.vs/
+packages/
+Messanger/scripts/
+Messanger/fonts/
+Messanger/Logs/
+Messanger/obj/
+AuthService/obj/
+DataService/obj/
+
+
