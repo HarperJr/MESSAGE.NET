@@ -1,4 +1,5 @@
-﻿using NLog.Config;
+﻿using Messanger.Logger;
+using NLog.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,11 @@ namespace Messanger
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private readonly ILogger _logger = LogFactory.Factory.GetLogger<MvcApplication>();
+
         protected void Application_Start()
         {
+            _logger.Trace("ApplicationStart");
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

@@ -7,23 +7,44 @@ using System.ServiceModel.Web;
 using System.Text;
 
 namespace DataService {
-    // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени интерфейса "IService1" в коде и файле конфигурации.
+
     [ServiceContract]
     public interface IDataService {
 
         [OperationContract]
-        string GetData(int value);
+        ConsumerContract GetConsumerDataById(string id);
 
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
-        // TODO: Добавьте здесь операции служб
     }
 
-
-    // Используйте контракт данных, как показано в примере ниже, чтобы добавить составные типы к операциям служб.
     [DataContract]
-    public class CompositeType {
-       
+    public class ConsumerContract {
+
+        [DataMember]
+        public string Name { get; set; }
+
+        [DataMember]
+        public DateTime LastTimeOnline { get; set; }
+
+        [DataMember]
+        public string PhoneNumber { get; set; }
+
+        [DataMember]
+        public string AvatarId { get; set; }
+
+        [DataMember]
+        public ICollection<ContactContract> Contacts { get; set; }
+    }
+
+    [DataContract]
+    public class ContactContract {
+
+        [DataMember]
+        public string Id { get; set; }
+
+        [DataMember] 
+        public string Name { get; set; }
+
+        [DataMember]
+        public string AvatarId { get; set; }
     }
 }

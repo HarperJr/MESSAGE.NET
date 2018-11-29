@@ -1,0 +1,12 @@
+﻿@model ICollection<Messanger.Models.Dialog>
+
+<ul>
+    @{  
+        foreach (var dialog in Model) {
+            <li onclick="onDialogClicked(@dialog.Id)">@dialog.Title</li>
+        }
+    }
+</ul>
+
+
+
