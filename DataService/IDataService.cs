@@ -12,24 +12,39 @@ namespace DataService {
     public interface IDataService {
 
         [OperationContract]
-        IEnumerable<Dialog> getDialogListByConsumerId(string consuemerId);
-
-        [OperationContract]
-        IEnumerable<Contact> getContactsByConsumerId(string consumerId);
+        ConsumerContract GetConsumerDataById(string id);
 
     }
 
     [DataContract]
-    public class Dialog {
+    public class ConsumerContract {
 
         [DataMember]
-        public string DialogTitle { get; set; }
+        public string Name { get; set; }
+
+        [DataMember]
+        public DateTime LastTimeOnline { get; set; }
+
+        [DataMember]
+        public string PhoneNumber { get; set; }
+
+        [DataMember]
+        public string AvatarId { get; set; }
+
+        [DataMember]
+        public ICollection<ContactContract> Contacts { get; set; }
     }
 
     [DataContract]
-    public class Contact {
+    public class ContactContract {
 
         [DataMember]
-        public string ContactName { get; set; }
+        public string Id { get; set; }
+
+        [DataMember] 
+        public string Name { get; set; }
+
+        [DataMember]
+        public string AvatarId { get; set; }
     }
 }
