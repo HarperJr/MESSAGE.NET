@@ -1,7 +1,12 @@
-﻿
-@{
-    ViewBag.Title = "Dialog";
-}
+﻿@model ICollection<Messanger.Models.Dialog>
 
-<h2>Dialog</h2>
+<ul>
+    @{  
+        foreach (var dialog in Model) {
+            <li onclick="onDialogClicked(@dialog.Id)">@dialog.Title</li>
+        }
+    }
+</ul>
+
+
 

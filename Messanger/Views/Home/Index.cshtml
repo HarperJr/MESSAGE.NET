@@ -1,4 +1,23 @@
-﻿<div style="
+﻿@model Messanger.Models.Consumer
+
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    ul li {
+        display: block;
+        text-decoration: none;
+        padding: 15px;
+    }
+
+    ul li:hover {
+        background: #b6ff00;
+    }
+</style>
+
+<div style="
     width: 860px;
     height: 500px;
     position: absolute;
@@ -6,12 +25,29 @@
     top: 70px;
     left: 0;
     right: 0;
-    flex-flow: row;"> 
+    flex-flow: row;">
 
     <div id="dialogs" class="mdc-card" style="
     flex-basis: 200px;
     flex: 2;">
-       
+        <div id="container" style="
+    position:inherit;
+    margin:16px;
+    background:#808080">
+            <ul>
+                <li>
+                    <div>
+                        @Model.Name
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="dialogsContainer" style="
+    position:inherit;
+    margin:16px;
+    background:#0094ff">
+            
+        </div>
     </div>
     <div id="content" style="
     margin-left: 20px;
@@ -24,14 +60,61 @@
         <div class="mdc-card" style="
     margin-top: 20px;
     flex: 1;">
-
+            <div style="
+                 margin: 16px">
+                <form>
+                    <input type="text" style="position:relative" />
+                    <button type="button" class="mdc-button mdc-button--dense" name="sendMessage" onclick="onSendMessageClicked()"/>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        $("#dialogs").load('@Url.Action("Dialogs", "Home", null, Request.Url.Scheme)?guid=42bc99d3-870a-4089-9990-fee0b35de80a');
+    var messanger = {
+        identifier: "4b47286f-a4f6-41fd-aec3-cc547d135052",
+        dialogsLoaded: 0,
+        dialogsPortion: 10,
+        messagesLoaded: 0,
+        messagesPortion: 30
+    }
+
+    $(function () {
+        loadDialogsAsync(messanger.identifier, messanger.dialogsLoaded, messanger.dialogsPortion);
     });
+
+    function loadDialogsAsync(uid, from, portion) {
+        $.ajax({
+            url: "@Url.Action("Dialogs", "Home")",
+            method: "post",
+            data: {
+                uid: uid,
+                from: from,
+                to: portion
+            },
+            error: function () { },
+            success: function (view) {
+                $("#dialogsContainer").html(view);
+                messanger.dialogsLoaded += messanger.dialogsPortion;
+            }
+        });
+    }
+
+    function sendMessageAsync(message) {
+        $.ajax({
+            
+        });
+    }
+
+    function onSendMessageClicked() {
+        alert("onSendMessageClicked");
+    }
+
+    function onDialogClicked(dialog) {
+        alert("onDialogClicked " + dialog);
+    }
+
 </script>
+
 
