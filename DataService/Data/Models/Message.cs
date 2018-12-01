@@ -8,8 +8,8 @@ using System.Web;
 namespace DataService.Data.Models {
     public class Message {
 
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Key]
+        public string Id { get; set; }
 
         public Dialog Dialog { get; set; }
 
@@ -17,7 +17,7 @@ namespace DataService.Data.Models {
 
         public DateTime Time { get; set; }
 
-        [MaxLength(1024)]
+        [MaxLength(4096)]
         public string Content { get; set; }
 
         public bool HasMultimedia { get; set; } 

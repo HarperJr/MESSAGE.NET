@@ -9,6 +9,9 @@ namespace DataService.Data {
     public class DataMapper {
         public static void Configure() {
             Mapper.Initialize(cfg => {
+
+                #region Model to Contract
+
                 cfg.CreateMap<Consumer, ConsumerContract>()
                 .ForMember(m => m.AvatarId, opt => opt.MapFrom(c => c.Avatar.Id));
 
@@ -20,6 +23,7 @@ namespace DataService.Data {
 
                 cfg.CreateMap<DialogParticipant, ParticipantContract>()
                 .ForMember(m => m.DialogId, opt => opt.MapFrom(c => c.Dialog.Id))
+                .ForMember(m => m.ParticipantId, opt => opt.MapFrom(c => c.Participant.Id))
                 .ForMember(m => m.InvitorId, opt => opt.MapFrom(c => c.Invitor.Id));
 
                 cfg.CreateMap<Message, MessageContract>()
@@ -28,9 +32,23 @@ namespace DataService.Data {
 
                 cfg.CreateMap<Multimedia, MultimediaContract>();
 
+                #endregion
+
+                #region Contract to Model
+
                 cfg.CreateMap<ConsumerContract, Consumer>();
 
-                cfg.CreateMap<Contact, ContactContract>();
+                cfg.CreateMap<ContactContract, Contact>();
+
+                cfg.CreateMap<DialogContract, Dialog>();
+
+                cfg.CreateMap<ParticipantContract, DialogParticipant>();
+
+                cfg.CreateMap<MessageContract, Message>();
+
+                cfg.CreateMap<MultimediaContract, Multimedia>();
+
+                #endregion
             });
         }
     }

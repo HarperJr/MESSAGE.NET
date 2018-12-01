@@ -12,10 +12,19 @@ namespace DataService {
     public interface IDataService {
 
         [OperationContract]
-        void InsertConsumerData(ConsumerContract consumerContract);
+        void InsertConsumer(ConsumerContract consumerContract);
 
         [OperationContract]
         void InsertConsumerContact(string consumerId, ContactContract contactContract);
+
+        [OperationContract]
+        void InsertDialog(DialogContract dialogContract);
+
+        [OperationContract]
+        void InsertMessages(ICollection<MessageContract> messages);
+
+        [OperationContract]
+        void InsertMultimedias(ICollection<MultimediaContract> multimedias);
 
         [OperationContract]
         ICollection<ConsumerContract> GetConsumerContactsById(string id);
@@ -23,15 +32,23 @@ namespace DataService {
         [OperationContract]
         ConsumerContract GetConsumerDataById(string id);
 
+        [OperationContract]
+        ICollection<DialogContract> GetDialogsByConsumerIdWithOffsetAndLimit(string consumerId, int offset, int limit);
+
+        [OperationContract]
+        ICollection<MessageContract> GetMessagesByDialogIdWithOffsetAndLimit(int dialogId, int offset, int limit);
+
+        [OperationContract]
+        ICollection<MultimediaContract> GetAttachedMultimediasByMessageId(string messageId);
+
+        [OperationContract]
+        MultimediaContract GetMultimediaById(string id);
     }
 
     public interface IDataDuplexCallback {
 
         [OperationContract(IsOneWay = true)]
         void OnComplete();
-
-        [OperationContract(IsOneWay = true)]
-        void OnSucces();
 
         [OperationContract(IsOneWay = true)]
         void OnError();
@@ -73,6 +90,9 @@ namespace DataService {
     public class DialogContract {
 
         [DataMember]
+        public int Id { get; set; }
+
+        [DataMember]
         public string OwnerId { get; set; }
 
         [DataMember]
@@ -90,6 +110,9 @@ namespace DataService {
 
         [DataMember]
         public int DialogId { get; set; }
+
+        [DataMember]
+        public string ParticipantId { get; set; }
 
         [DataMember]
         public string InvitorId { get; set; }

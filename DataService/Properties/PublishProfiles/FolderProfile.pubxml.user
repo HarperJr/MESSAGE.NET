@@ -9,23 +9,32 @@
     <_PublishTargetUrl>C:\inetpub\wwwroot\wcfdata</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>11/17/2018 10:14:56</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.pdb">
+      <publishTime>11/17/2018 10:14:56</publishTime>
+    </File>
     <File Include="bin/DataService.dll">
-      <publishTime>12/01/2018 16:53:04</publishTime>
+      <publishTime>12/01/2018 22:49:26</publishTime>
     </File>
     <File Include="bin/DataService.pdb">
-      <publishTime>12/01/2018 16:53:04</publishTime>
+      <publishTime>12/01/2018 22:49:26</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>12/01/2018 12:42:40</publishTime>
+      <publishTime>01/12/2018 12:42:40</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>12/01/2018 12:42:40</publishTime>
+      <publishTime>01/12/2018 12:42:40</publishTime>
+    </File>
+    <File Include="bin/System.ValueTuple.dll">
+      <publishTime>12/01/2018 12:42:44</publishTime>
     </File>
     <File Include="DataService.svc">
-      <publishTime>12/01/2018 12:42:38</publishTime>
+      <publishTime>01/12/2018 12:42:38</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/01/2018 16:45:59</publishTime>
+      <publishTime>12/01/2018 22:49:26</publishTime>
     </File>
   </ItemGroup>
 </Project>
