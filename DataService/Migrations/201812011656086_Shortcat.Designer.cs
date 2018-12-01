@@ -7,13 +7,13 @@ namespace DataService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Init : IMigrationMetadata
+    public sealed partial class Shortcat : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Shortcat));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811291003025_Init"; }
+            get { return "201812011656086_Shortcat"; }
         }
         
         string IMigrationMetadata.Source

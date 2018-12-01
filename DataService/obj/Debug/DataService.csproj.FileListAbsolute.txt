@@ -26,10 +26,12 @@ C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\EntityFramework.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\EntityFramework.SqlServer.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\EntityFramework.xml
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\EntityFramework.SqlServer.xml
-C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.Migrations.Init.resources
-C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.csproj.GenerateResource.cache
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.csproj.CoreCompileInputs.cache
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.csproj.CopyComplete
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.pdb
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.csprojResolveAssemblyReference.cache
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.Migrations.Init.resources
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.csproj.GenerateResource.cache
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.Migrations.DataFormat.resources
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Debug\DataService.Migrations.Shortcat.resources

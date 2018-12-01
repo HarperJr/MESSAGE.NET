@@ -6,18 +6,15 @@ using System.Linq;
 using System.Web;
 
 namespace DataService.Data.Models {
-    public class Dialog {
+    public class AttachedMultimedia {
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public Consumer Owner { get; set; }
+        public Message Message { get; set; }
 
-        public Multimedia Shortcut { get; set; }
+        public Multimedia Multimedia { get; set; }
 
-        [MaxLength(32)]
-        public string Title { get; set; }
-
-        public DateTime InitDate { get; set; }
+        public bool IsStatic { get; set; }
     }
 }

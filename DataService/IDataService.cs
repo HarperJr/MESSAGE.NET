@@ -15,7 +15,7 @@ namespace DataService {
         void InsertConsumerData(ConsumerContract consumerContract);
 
         [OperationContract]
-        void InsertConsumerContact(ConsumerContract consumer, string contactId);
+        void InsertConsumerContact(string consumerId, ContactContract contactContract);
 
         [OperationContract]
         ICollection<ConsumerContract> GetConsumerContactsById(string id);
@@ -33,7 +33,7 @@ namespace DataService {
         [OperationContract(IsOneWay = true)]
         void OnSucces();
 
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void OnError();
     }
 
@@ -54,8 +54,79 @@ namespace DataService {
 
         [DataMember]
         public string AvatarId { get; set; }
+    }
+
+    [DataContract]
+    public class ContactContract {
 
         [DataMember]
-        public ICollection<ConsumerContract> Contacts { get; set; }
+        public string ContactId { get; set; }
+
+        [DataMember]
+        public DateTime InitTime { get; set; }
+
+        [DataMember]
+        public string Status { get; set; }
+    }
+
+    [DataContract]
+    public class DialogContract {
+
+        [DataMember]
+        public string OwnerId { get; set; }
+
+        [DataMember]
+        public string Title { get; set; }
+
+        [DataMember]
+        public DateTime InitDate { get; set; }
+
+        [DataMember]
+        public string MultimediaId { get; set; }
+    }
+
+    [DataContract]
+    public class ParticipantContract {
+
+        [DataMember]
+        public int DialogId { get; set; }
+
+        [DataMember]
+        public string InvitorId { get; set; }
+    }
+
+    [DataContract]
+    public class MessageContract {
+
+        [DataMember]
+        public int DialogId { get; set; }
+
+        [DataMember]
+        public string SenderId { get; set; }
+
+        [DataMember]
+        public DateTime Time { get; set; }
+
+        [DataMember]
+        public string Content { get; set; }
+
+        [DataMember]
+        public bool HasMultimedia { get; set; }
+
+        [DataMember]
+        public bool Viewed { get; set; }
+    }
+
+    [DataContract]
+    public class MultimediaContract {
+
+        [DataMember]
+        public int Height { get; set; }
+
+        [DataMember]
+        public int Width { get; set; }
+
+        [DataMember]
+        public string RemotePath { get; set; }
     }
 }

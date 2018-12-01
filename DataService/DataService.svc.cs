@@ -1,31 +1,33 @@
 ﻿
-
+using System.Linq;
 using DataService.Data;
-using DataService.Mappers;
+using AutoMapper;
 using System.Collections.Generic;
+using DataService.Data.Models;
 
 namespace DataService {
     public class DataService : IDataService {
 
         private readonly LocalDbContext _localDbContext = new LocalDbContext();
-        private readonly ConsumerMapper _consumerMapper;
         
         public DataService() {
-            _consumerMapper = new ConsumerMapper();
+            DataMapper.Configure();
         }
 
         public ICollection<ConsumerContract> GetConsumerContactsById(string id) {
-            return GetConsumerDataById(id).Contacts;
+            return Mapper.Map<ICollection<ConsumerContract>>(_localDbContext.Contacts.Where(contact => contact.InitialConsumer.Id.Equals(id)));
         }
 
         public ConsumerContract GetConsumerDataById(string id) {
-           return _consumerMapper.ModelToContract(_localDbContext.Consumers.Find(id));
+           return Mapper.Map<ConsumerContract>(_localDbContext.Consumers.Find(id));
         }
 
-        public void InsertConsumerContact(ConsumerContract consumerContract, string contactId) {
+        public void InsertConsumerContact(string consumerId, ContactContract contactContract) {
+            _localDbContext.Contacts.Add(Mapper.Map<Contact>(contactContract));
         }
 
         public void InsertConsumerData(ConsumerContract consumerContract) {
+            _localDbContext.Consumers.Add(Mapper.Map<Consumer>(consumerContract));
         }
     }
 }
