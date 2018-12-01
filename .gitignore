@@ -1,5 +1,6 @@
 .vs/
 *.mdf
+*.cache
 packages/
 Messanger/scripts/
 Messanger/fonts/

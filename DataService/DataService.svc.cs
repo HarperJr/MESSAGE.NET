@@ -14,8 +14,18 @@ namespace DataService {
             _consumerMapper = new ConsumerMapper();
         }
 
+        public ICollection<ConsumerContract> GetConsumerContactsById(string id) {
+            return GetConsumerDataById(id).Contacts;
+        }
+
         public ConsumerContract GetConsumerDataById(string id) {
            return _consumerMapper.ModelToContract(_localDbContext.Consumers.Find(id));
+        }
+
+        public void InsertConsumerContact(ConsumerContract consumerContract, string contactId) {
+        }
+
+        public void InsertConsumerData(ConsumerContract consumerContract) {
         }
     }
 }

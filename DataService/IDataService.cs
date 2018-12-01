@@ -8,16 +8,40 @@ using System.Text;
 
 namespace DataService {
 
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IDataDuplexCallback))]
     public interface IDataService {
+
+        [OperationContract]
+        void InsertConsumerData(ConsumerContract consumerContract);
+
+        [OperationContract]
+        void InsertConsumerContact(ConsumerContract consumer, string contactId);
+
+        [OperationContract]
+        ICollection<ConsumerContract> GetConsumerContactsById(string id);
 
         [OperationContract]
         ConsumerContract GetConsumerDataById(string id);
 
     }
 
+    public interface IDataDuplexCallback {
+
+        [OperationContract(IsOneWay = true)]
+        void OnComplete();
+
+        [OperationContract(IsOneWay = true)]
+        void OnSucces();
+
+        [OperationContract]
+        void OnError();
+    }
+
     [DataContract]
     public class ConsumerContract {
+
+        [DataMember]
+        public string Id { get; set; }
 
         [DataMember]
         public string Name { get; set; }
@@ -32,19 +56,6 @@ namespace DataService {
         public string AvatarId { get; set; }
 
         [DataMember]
-        public ICollection<ContactContract> Contacts { get; set; }
-    }
-
-    [DataContract]
-    public class ContactContract {
-
-        [DataMember]
-        public string Id { get; set; }
-
-        [DataMember] 
-        public string Name { get; set; }
-
-        [DataMember]
-        public string AvatarId { get; set; }
+        public ICollection<ConsumerContract> Contacts { get; set; }
     }
 }

@@ -7,8 +7,6 @@ using System.Web;
 namespace DataService.Mappers {
     public class ConsumerMapper {
 
-        private readonly ContactMapper _contactMapper = new ContactMapper();
-
         public ConsumerContract ModelToContract(Consumer consumer) {
             if (consumer == null) return null;
             ConsumerContract consumerContract = new ConsumerContract() {
@@ -16,7 +14,7 @@ namespace DataService.Mappers {
                 AvatarId = consumer.Avatar.Id,
                 PhoneNumber = consumer.PhoneNumber,
                 LastTimeOnline = consumer.LastTimeOnline,
-                Contacts = _contactMapper.ModelListToContractList(consumer.Contacts)
+                Contacts = ModelListToContractList(consumer.Contacts)
             };
             return consumerContract;
         }
@@ -24,22 +22,19 @@ namespace DataService.Mappers {
         public ICollection<ConsumerContract> ModelListToContractList(ICollection<Consumer> consumers) {
             return consumers.Select(x => ModelToContract(x)).ToList();
         }
-    }
 
-    public class ContactMapper {
-
-        public ContactContract ModelToContract(Consumer consumer) {
-            if (consumer == null) return null;
-            ContactContract contactContract = new ContactContract() {
-                Id = consumer.Id,
-                Name = consumer.Name,
-                AvatarId = consumer.Avatar.Id
+        public Consumer ContractToModel(ConsumerContract consumerContract) {
+            if (consumerContract == null) return null;
+            Consumer consumer = new Consumer() {
+                Id = consumerContract.Id,
+                Name = consumerContract.Name,
+                PhoneNumber = consumerContract.PhoneNumber
             };
-            return contactContract;
+            return consumer;
         }
 
-        public ICollection<ContactContract> ModelListToContractList(ICollection<Consumer> consumers) {
-            return consumers.Select(x => ModelToContract(x)).ToList();
+        public ICollection<Consumer> ContractListToModelList(ICollection<ConsumerContract> consumerContracts) {
+            return consumerContracts.Select(x => ContractToModel(x)).ToList();
         }
     }
 }
