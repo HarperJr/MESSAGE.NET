@@ -10,16 +10,14 @@ namespace DataService.Data.Models {
         [Key]
         public string Id { get; set; }
 
-        public Multimedia Avatar { get; set; }
-
         [MaxLength(64)]
         public string Name { get; set; }
+
+        public Multimedia Avatar { get; set; }
 
         [MaxLength(16)]
         public string PhoneNumber { get; set; }
         
         public DateTime LastTimeOnline { get; set; }
-
-        public ICollection<Consumer> Contacts { get; set; }
     }
 }

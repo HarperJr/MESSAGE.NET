@@ -12,3 +12,10 @@ C:\Users\docto\Desktop\Repositories\MESSAGE.NET\AuthService\obj\Debug\AuthServic
 C:\Users\docto\Desktop\Repositories\MESSAGE.NET\AuthService\obj\Debug\AuthService.csproj.CoreCompileInputs.cache
 C:\Users\docto\Desktop\Repositories\MESSAGE.NET\AuthService\obj\Debug\AuthService.dll
 C:\Users\docto\Desktop\Repositories\MESSAGE.NET\AuthService\obj\Debug\AuthService.pdb
+C:\Users\docto\Desktop\cource\MESSAGE.NET\AuthService\bin\AuthService.dll.config
+C:\Users\docto\Desktop\cource\MESSAGE.NET\AuthService\bin\AuthService.dll
+C:\Users\docto\Desktop\cource\MESSAGE.NET\AuthService\bin\AuthService.pdb
+C:\Users\docto\Desktop\cource\MESSAGE.NET\AuthService\obj\Debug\AuthService.csprojResolveAssemblyReference.cache
+C:\Users\docto\Desktop\cource\MESSAGE.NET\AuthService\obj\Debug\AuthService.csproj.CoreCompileInputs.cache
+C:\Users\docto\Desktop\cource\MESSAGE.NET\AuthService\obj\Debug\AuthService.dll
+C:\Users\docto\Desktop\cource\MESSAGE.NET\AuthService\obj\Debug\AuthService.pdb
