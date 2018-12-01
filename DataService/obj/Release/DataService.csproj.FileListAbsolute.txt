@@ -19,3 +19,10 @@ C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Release\DataService.cs
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Release\DataService.csproj.CopyComplete
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Release\DataService.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Release\DataService.pdb
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\AutoMapper.dll
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\System.ValueTuple.dll
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\AutoMapper.pdb
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\AutoMapper.xml
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\System.ValueTuple.xml
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Release\DataService.Migrations.DataFormat.resources
+C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Release\DataService.Migrations.Shortcat.resources

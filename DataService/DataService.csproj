@@ -81,6 +81,7 @@
     <Compile Include="DataService.svc.cs">
       <DependentUpon>DataService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Data\DataMapper.cs" />
     <Compile Include="Data\LocalDbContext.cs" />
     <Compile Include="Data\Models\AttachedMultimedia.cs" />
     <Compile Include="Data\Models\Contact.cs" />
@@ -90,7 +91,6 @@
     <Compile Include="Data\Models\Dialog.cs" />
     <Compile Include="Data\Models\Message.cs" />
     <Compile Include="Data\Models\Multimedia.cs" />
-    <Compile Include="Mappers\ConsumerMapper.cs" />
     <Compile Include="Migrations\201812011558341_Init.cs" />
     <Compile Include="Migrations\201812011558341_Init.Designer.cs">
       <DependentUpon>201812011558341_Init.cs</DependentUpon>
@@ -130,6 +130,9 @@
     <EmbeddedResource Include="Migrations\201812011656086_Shortcat.resx">
       <DependentUpon>201812011656086_Shortcat.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
