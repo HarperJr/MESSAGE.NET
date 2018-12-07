@@ -91,17 +91,9 @@
     <Compile Include="Data\Models\Dialog.cs" />
     <Compile Include="Data\Models\Message.cs" />
     <Compile Include="Data\Models\Multimedia.cs" />
-    <Compile Include="Migrations\201812011558341_Init.cs" />
-    <Compile Include="Migrations\201812011558341_Init.Designer.cs">
-      <DependentUpon>201812011558341_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812011636339_DataFormat.cs" />
-    <Compile Include="Migrations\201812011636339_DataFormat.Designer.cs">
-      <DependentUpon>201812011636339_DataFormat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812011656086_Shortcat.cs" />
-    <Compile Include="Migrations\201812011656086_Shortcat.Designer.cs">
-      <DependentUpon>201812011656086_Shortcat.cs</DependentUpon>
+    <Compile Include="Migrations\201812061614208_Init.cs" />
+    <Compile Include="Migrations\201812061614208_Init.Designer.cs">
+      <DependentUpon>201812061614208_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,18 +113,12 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812011558341_Init.resx">
-      <DependentUpon>201812011558341_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812011636339_DataFormat.resx">
-      <DependentUpon>201812011636339_DataFormat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812011656086_Shortcat.resx">
-      <DependentUpon>201812011656086_Shortcat.cs</DependentUpon>
-    </EmbeddedResource>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <EmbeddedResource Include="Migrations\201812061614208_Init.resx">
+      <DependentUpon>201812061614208_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

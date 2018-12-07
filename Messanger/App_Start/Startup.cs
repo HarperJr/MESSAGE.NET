@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Messanger.Auth;
 using Messanger.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -10,18 +11,13 @@ using Owin;
 namespace Messanger.App_Start {
 
 public class Startup {
-        private static OAuthAuthorizationServerOptions _owinAuthorizationServerOptions =
-            new OAuthAuthorizationServerOptions {
-                 Provider = new AuthorizationServerProvider(),
-                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                 TokenEndpointPath = new PathString("auth/token"),
-                 AuthorizeEndpointPath = new PathString("/auth/Account/Login"),
-                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                 AllowInsecureHttp = true
-            };
 
         public void Configuration(IAppBuilder app) {
-            app.UseOAuthBearerTokens(_owinAuthorizationServerOptions);
+            ConfigureAuth(app);
+        }
+
+        private void ConfigureAuth(IAppBuilder app) {
+            app.CreatePerOwinContext(AuthDbContext.GetInstance);
         }
     }
 }

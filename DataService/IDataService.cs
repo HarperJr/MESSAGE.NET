@@ -33,6 +33,9 @@ namespace DataService {
         ConsumerContract GetConsumerDataById(string id);
 
         [OperationContract]
+        ICollection<ConsumerContract> GetConsumersByMatchingNameWithOffsetAndLimit(string name, int offset, int limit);
+
+        [OperationContract]
         ICollection<DialogContract> GetDialogsByConsumerIdWithOffsetAndLimit(string consumerId, int offset, int limit);
 
         [OperationContract]

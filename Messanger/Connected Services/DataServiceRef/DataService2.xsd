@@ -90,6 +90,22 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetConsumersByMatchingNameWithOffsetAndLimit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="offset" type="xs:int" />
+        <xs:element minOccurs="0" name="limit" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConsumersByMatchingNameWithOffsetAndLimitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetConsumersByMatchingNameWithOffsetAndLimitResult" nillable="true" type="q8:ArrayOfConsumerContract" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetDialogsByConsumerIdWithOffsetAndLimit">
     <xs:complexType>
       <xs:sequence>
@@ -102,7 +118,7 @@
   <xs:element name="GetDialogsByConsumerIdWithOffsetAndLimitResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetDialogsByConsumerIdWithOffsetAndLimitResult" nillable="true" type="q8:ArrayOfDialogContract" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetDialogsByConsumerIdWithOffsetAndLimitResult" nillable="true" type="q9:ArrayOfDialogContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -118,7 +134,7 @@
   <xs:element name="GetMessagesByDialogIdWithOffsetAndLimitResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetMessagesByDialogIdWithOffsetAndLimitResult" nillable="true" type="q9:ArrayOfMessageContract" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetMessagesByDialogIdWithOffsetAndLimitResult" nillable="true" type="q10:ArrayOfMessageContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -132,7 +148,7 @@
   <xs:element name="GetAttachedMultimediasByMessageIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetAttachedMultimediasByMessageIdResult" nillable="true" type="q10:ArrayOfMultimediaContract" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetAttachedMultimediasByMessageIdResult" nillable="true" type="q11:ArrayOfMultimediaContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -146,7 +162,7 @@
   <xs:element name="GetMultimediaByIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetMultimediaByIdResult" nillable="true" type="q11:MultimediaContract" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetMultimediaByIdResult" nillable="true" type="q12:MultimediaContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

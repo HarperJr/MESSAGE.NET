@@ -53,9 +53,14 @@ namespace DataService {
                 _localDbContext.DialogParticipants.Where(part => part.Participant.Id.Equals(consumerId))
                 .Select(part => part.Dialog)
                 .Skip(offset)
-                .Take(limit)
-                );
-                
+                .Take(limit));   
+        }
+
+        public ICollection<ConsumerContract> GetConsumersByMatchingNameWithOffsetAndLimit(string name, int offset, int limit) {
+            return Mapper.Map<ICollection<ConsumerContract>>(
+                _localDbContext.Consumers.Where(consumer => consumer.Name.Contains(name))
+                .Skip(offset)
+                .Take(limit));
         }
 
         public ICollection<MessageContract> GetMessagesByDialogIdWithOffsetAndLimit(int dialogId, int offset, int limit) {
@@ -63,14 +68,12 @@ namespace DataService {
                 _localDbContext.Messages.Where(message => message.Dialog.Id.Equals(dialogId))
                 .Reverse()
                 .Skip(offset)
-                .Take(limit)
-                );
+                .Take(limit));
         }
 
         public MultimediaContract GetMultimediaById(string id) {
             return Mapper.Map<MultimediaContract>(
-                _localDbContext.Multimedia.Find(id)
-                );
+                _localDbContext.Multimedia.Find(id));
         }
 
         public void InsertMultimedias(ICollection<MultimediaContract> multimedias) {
