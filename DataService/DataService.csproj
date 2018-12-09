@@ -81,8 +81,8 @@
     <Compile Include="DataService.svc.cs">
       <DependentUpon>DataService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Data\DataMapper.cs" />
     <Compile Include="Data\LocalDbContext.cs" />
+    <Compile Include="Data\Mappers\MapperConfig.cs" />
     <Compile Include="Data\Models\AttachedMultimedia.cs" />
     <Compile Include="Data\Models\Contact.cs" />
     <Compile Include="Data\Models\DialogParticipant.cs" />

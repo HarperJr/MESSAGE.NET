@@ -1,179 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/wcfdata/DataService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataService" />
-  <xs:element name="InsertConsumer">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="consumerContract" nillable="true" type="q1:ConsumerContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertConsumerResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertConsumerContact">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="consumerId" nillable="true" type="xs:string" />
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="contactContract" nillable="true" type="q2:ContactContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertConsumerContactResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertDialog">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="dialogContract" nillable="true" type="q3:DialogContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertDialogResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertMessages">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="messages" nillable="true" type="q4:ArrayOfMessageContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertMessagesResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertMultimedias">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="multimedias" nillable="true" type="q5:ArrayOfMultimediaContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertMultimediasResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetConsumerContactsById">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetConsumerContactsByIdResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetConsumerContactsByIdResult" nillable="true" type="q6:ArrayOfConsumerContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetConsumerDataById">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetConsumerDataByIdResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetConsumerDataByIdResult" nillable="true" type="q7:ConsumerContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetConsumersByMatchingNameWithOffsetAndLimit">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="offset" type="xs:int" />
-        <xs:element minOccurs="0" name="limit" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetConsumersByMatchingNameWithOffsetAndLimitResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetConsumersByMatchingNameWithOffsetAndLimitResult" nillable="true" type="q8:ArrayOfConsumerContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetDialogsByConsumerIdWithOffsetAndLimit">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="consumerId" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="offset" type="xs:int" />
-        <xs:element minOccurs="0" name="limit" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetDialogsByConsumerIdWithOffsetAndLimitResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetDialogsByConsumerIdWithOffsetAndLimitResult" nillable="true" type="q9:ArrayOfDialogContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetMessagesByDialogIdWithOffsetAndLimit">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="dialogId" type="xs:int" />
-        <xs:element minOccurs="0" name="offset" type="xs:int" />
-        <xs:element minOccurs="0" name="limit" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetMessagesByDialogIdWithOffsetAndLimitResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetMessagesByDialogIdWithOffsetAndLimitResult" nillable="true" type="q10:ArrayOfMessageContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAttachedMultimediasByMessageId">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="messageId" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAttachedMultimediasByMessageIdResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetAttachedMultimediasByMessageIdResult" nillable="true" type="q11:ArrayOfMultimediaContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetMultimediaById">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetMultimediaByIdResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/DataService" minOccurs="0" name="GetMultimediaByIdResult" nillable="true" type="q12:MultimediaContract" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="OnComplete">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="OnError">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DataService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ConsumerContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AvatarId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastTimeOnline" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConsumerContract" nillable="true" type="tns:ConsumerContract" />
+  <xs:complexType name="ContactContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContactId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InitTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContactContract" nillable="true" type="tns:ContactContract" />
+  <xs:complexType name="DialogContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="InitDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MultimediaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnerId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DialogContract" nillable="true" type="tns:DialogContract" />
+  <xs:complexType name="ArrayOfMessageContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MessageContract" nillable="true" type="tns:MessageContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMessageContract" nillable="true" type="tns:ArrayOfMessageContract" />
+  <xs:complexType name="MessageContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DialogId" type="xs:int" />
+      <xs:element minOccurs="0" name="HasMultimedia" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SenderId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Time" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Viewed" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MessageContract" nillable="true" type="tns:MessageContract" />
+  <xs:complexType name="ArrayOfMultimediaContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MultimediaContract" nillable="true" type="tns:MultimediaContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMultimediaContract" nillable="true" type="tns:ArrayOfMultimediaContract" />
+  <xs:complexType name="MultimediaContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Height" type="xs:int" />
+      <xs:element minOccurs="0" name="RemotePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Width" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MultimediaContract" nillable="true" type="tns:MultimediaContract" />
+  <xs:complexType name="ArrayOfConsumerContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ConsumerContract" nillable="true" type="tns:ConsumerContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfConsumerContract" nillable="true" type="tns:ArrayOfConsumerContract" />
+  <xs:complexType name="ArrayOfDialogContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DialogContract" nillable="true" type="tns:DialogContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDialogContract" nillable="true" type="tns:ArrayOfDialogContract" />
 </xs:schema>

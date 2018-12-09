@@ -24,8 +24,6 @@ C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\System.ValueTuple.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\AutoMapper.pdb
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\AutoMapper.xml
 C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\bin\System.ValueTuple.xml
-C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Release\DataService.Migrations.DataFormat.resources
-C:\Users\docto\Desktop\cource\MESSAGE.NET\DataService\obj\Release\DataService.Migrations.Shortcat.resources
 C:\Users\docto\Desktop\Repositories\MESSAGE.NET\DataService\bin\DataService.dll.config
 C:\Users\docto\Desktop\Repositories\MESSAGE.NET\DataService\bin\DataService.dll
 C:\Users\docto\Desktop\Repositories\MESSAGE.NET\DataService\bin\DataService.pdb

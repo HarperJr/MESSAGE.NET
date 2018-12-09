@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Messanger.Auth.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +14,11 @@ namespace Messanger.Controllers
         {
             return View();
         }
+
+        public ActionResult SignIn() {
+            return View();
+        }
+
+      
     }
 }

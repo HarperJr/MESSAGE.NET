@@ -1,14 +1,15 @@
-﻿using AutoMapper;
-using DataService.Data.Models;
+﻿using DataService.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DataService.Data {
-    public class DataMapper {
-        public static void Configure() {
-            Mapper.Initialize(cfg => {
+namespace DataService.Data.Mappers {
+    
+    public class MapperConfig {
+
+        public static AutoMapper.IMapper Initialize() {
+            return new AutoMapper.MapperConfiguration(cfg => {
 
                 #region Model to Contract
 
@@ -49,7 +50,7 @@ namespace DataService.Data {
                 cfg.CreateMap<MultimediaContract, Multimedia>();
 
                 #endregion
-            });
+            }).CreateMapper();
         }
     }
 }

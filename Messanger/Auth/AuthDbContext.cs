@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 
 namespace Messanger.Auth {
-    public class AuthDbContext : IdentityDbContext<AuthUser> {
+    public class AuthDbContext : IdentityDbContext<IdentityUser> {
 
         private static AuthDbContext _instance;
 

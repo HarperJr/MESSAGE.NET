@@ -289,7 +289,6 @@ C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\roslyn\vbc.exe.config
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\roslyn\vbc.rsp
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\roslyn\VBCSCompiler.exe
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\AuthService.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\AutoMapper.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\DataService.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\EntityFramework.dll
@@ -317,8 +316,6 @@ C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\System.Web.Razor.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\System.Web.Webpages.Deployment.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\System.Web.Webpages.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\System.Web.Webpages.Razor.dll
-C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\AuthService.pdb
-C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\AuthService.dll.config
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\DataService.pdb
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\DataService.dll.config
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\bin\AutoMapper.pdb
@@ -363,3 +360,5 @@ C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.pdb
 C:\Users\docto\Desktop\Repositories\MESSAGE.NET\Messanger\obj\Debug\Messanger.Migrations.Init.resources
 C:\Users\docto\Desktop\Repositories\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.GenerateResource.cache
+C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.Migrations.Init.resources
+C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.GenerateResource.cache

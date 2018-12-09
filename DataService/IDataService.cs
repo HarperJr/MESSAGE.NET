@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DataService {
 
-    [ServiceContract(CallbackContract = typeof(IDataDuplexCallback))]
+    [ServiceContract(Namespace = "http://services/dataservice/")]
     public interface IDataService {
 
         [OperationContract]
@@ -30,7 +30,7 @@ namespace DataService {
         ICollection<ConsumerContract> GetConsumerContactsById(string id);
 
         [OperationContract]
-        ConsumerContract GetConsumerDataById(string id);
+        ConsumerContract GetConsumerById(string id);
 
         [OperationContract]
         ICollection<ConsumerContract> GetConsumersByMatchingNameWithOffsetAndLimit(string name, int offset, int limit);
@@ -46,15 +46,6 @@ namespace DataService {
 
         [OperationContract]
         MultimediaContract GetMultimediaById(string id);
-    }
-
-    public interface IDataDuplexCallback {
-
-        [OperationContract(IsOneWay = true)]
-        void OnComplete();
-
-        [OperationContract(IsOneWay = true)]
-        void OnError();
     }
 
     [DataContract]

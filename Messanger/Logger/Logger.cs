@@ -57,7 +57,7 @@ namespace Messanger.Logger
 
     public sealed class LogFactory : ILogFactory {
 
-        private static NLog.ILogger _logger = NLog.LogManager.GetCurrentClassLogger();
+        private static NLog.ILogger _logger = LogManager.GetCurrentClassLogger();
         private static LogFactory _instance;
 
         public static LogFactory Factory {

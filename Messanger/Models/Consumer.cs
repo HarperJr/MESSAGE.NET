@@ -10,6 +10,10 @@ namespace Messanger.Models {
 
         public string Name { get; set; }
 
-        public string MultimediaId { get; set; }
+        public DateTime LastTimeOnline { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string AvatarId { get; set; }
     }
 }

@@ -16,25 +16,25 @@
       <publishTime>11/17/2018 10:14:56</publishTime>
     </File>
     <File Include="bin/DataService.dll">
-      <publishTime>12/06/2018 18:37:48</publishTime>
+      <publishTime>09/12/2018 13:38:01</publishTime>
     </File>
     <File Include="bin/DataService.pdb">
-      <publishTime>12/06/2018 18:37:48</publishTime>
+      <publishTime>09/12/2018 13:38:01</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>11/13/2018 22:35:03</publishTime>
+      <publishTime>01/12/2018 12:42:40</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>11/13/2018 22:35:02</publishTime>
+      <publishTime>01/12/2018 12:42:40</publishTime>
     </File>
     <File Include="bin/System.ValueTuple.dll">
-      <publishTime>11/13/2018 22:35:14</publishTime>
+      <publishTime>01/12/2018 12:42:44</publishTime>
     </File>
     <File Include="DataService.svc">
-      <publishTime>12/06/2018 18:36:37</publishTime>
+      <publishTime>08/12/2018 21:48:46</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/06/2018 17:49:37</publishTime>
+      <publishTime>09/12/2018 13:09:09</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -166,6 +166,7 @@
     <None Include="Connected Services\DataServiceRef\DataService.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\DataServiceRef\DataService1.wsdl" />
     <None Include="Connected Services\DataServiceRef\DataService1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -190,7 +191,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Auth\AuthDbContext.cs" />
-    <Compile Include="Auth\AuthUserManager.cs" />
     <Compile Include="Auth\Models\AuthUser.cs" />
     <Compile Include="Connected Services\DataServiceRef\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -206,6 +206,7 @@
       <DependentUpon>MessangerHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Logger\Logger.cs" />
+    <Compile Include="Mappers\MapperConfig.cs" />
     <Compile Include="Migrations\201812061802559_Init.cs" />
     <Compile Include="Migrations\201812061802559_Init.Designer.cs">
       <DependentUpon>201812061802559_Init.cs</DependentUpon>
@@ -218,8 +219,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
     <Compile Include="Providers\MessageProvider.cs" />
-    <Compile Include="Repositories\Base\IContactRepository.cs" />
-    <Compile Include="Repositories\ContactRepository.cs" />
+    <Compile Include="Repositories\Base\IConsumerRepository.cs" />
+    <Compile Include="Repositories\Base\IRepository.cs" />
+    <Compile Include="Repositories\ConsumerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -233,6 +235,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Auth\SignUp.cshtml" />
     <Content Include="Views\Home\Dialogs.cshtml" />
+    <Content Include="Views\Auth\SignIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,6 +250,11 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812061802559_Init.resx">
+      <DependentUpon>201812061802559_Init.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DataService\DataService.csproj">
       <Project>{610896e8-34d9-43cb-afe6-2f4ef53040af}</Project>
       <Name>DataService</Name>
@@ -254,11 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\DataServiceRef\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812061802559_Init.resx">
-      <DependentUpon>201812061802559_Init.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

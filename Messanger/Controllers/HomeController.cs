@@ -16,7 +16,7 @@ namespace Messanger.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger _logger = LogFactory.Factory.GetLogger<HomeController>();
-        private readonly ContactRepository _contactRepository;
+        private readonly ConsumerRepository _consumerRepository;
 
         private readonly ICollection<Dialog> dialogs = new List<Dialog>() {
                 new Dialog() {
@@ -34,14 +34,14 @@ namespace Messanger.Controllers
             };
 
         public HomeController() {
-            _contactRepository = DependencyResolver.Current.GetService<ContactRepository>();
+            _consumerRepository = DependencyResolver.Current.GetService<ConsumerRepository>();
         }
 
         // GET: Home
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             _logger.Trace("Index");
-            return View();
+            Consumer consumer = _consumerRepository.GetConsumerById("89b1b96b-472b-4338-a668-01ebd1748010");
+            return View(consumer);
         }
 
         public ActionResult Dialogs(string uid) {
