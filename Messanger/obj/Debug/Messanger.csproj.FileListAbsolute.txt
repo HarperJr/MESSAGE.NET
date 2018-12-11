@@ -364,3 +364,9 @@ C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.C
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.CopyComplete
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.pdb
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\AuthService.dll
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\DataService.dll
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\AuthService.pdb
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\AuthService.dll.config
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\DataService.pdb
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\DataService.dll.config

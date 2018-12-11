@@ -1,11 +1,8 @@
-﻿using Messanger.Logger;
-using Messanger.Models;
+﻿using Messanger.Data.Models;
+using Messanger.Http.Models;
+using Messanger.Logger;
 using Messanger.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Messanger.Controllers
@@ -16,7 +13,7 @@ namespace Messanger.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger _logger = LogFactory.Factory.GetLogger<HomeController>();
-        private readonly ContactRepository _contactRepository;
+        private readonly IConsumerRepository _consumerRepository;
 
         private readonly Consumer consumer;
         private readonly ICollection<Dialog> dialogs = new List<Dialog>() {
@@ -31,16 +28,24 @@ namespace Messanger.Controllers
                 new Dialog() {
                     Id = 2,
                     Title = "Nikki"
+                },
+                 new Dialog() {
+                    Id = 3,
+                    Title = "Max"
+                },
+                  new Dialog() {
+                    Id = 4,
+                    Title = "Vladimir"
                 }
             };
 
         public HomeController() {
-            _contactRepository = DependencyResolver.Current.GetService<ContactRepository>();
+            _consumerRepository = DependencyResolver.Current.GetService<ConsumerRepository>();
 
             consumer = new Consumer() {
                 Id = "4b47286f-a4f6-41fd-aec3-cc547d135052",
                 Name = "HarperJr",
-                MultimediaId = "3d388098-c5c1-48d7-b607-a9dc5d3bda9f"
+                AvatarId = "3d388098-c5c1-48d7-b607-a9dc5d3bda9f"
             };
         }
 
@@ -51,8 +56,8 @@ namespace Messanger.Controllers
             return View(consumer);
         }
 
-        public ActionResult Dialogs(string uid) {
-            _logger.Trace($"Dialogs: uid {uid}");
+        public ActionResult Dialogs(DialogsRequest request) {
+            _logger.Trace($"Dialogs: uid {request.Uid}");
             return PartialView(dialogs);
         }
     }

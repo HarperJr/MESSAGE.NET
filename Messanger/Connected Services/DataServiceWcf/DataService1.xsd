@@ -10,14 +10,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ConsumerContract" nillable="true" type="tns:ConsumerContract" />
-  <xs:complexType name="ContactContract">
+  <xs:complexType name="ArrayOfConsumerContract">
     <xs:sequence>
-      <xs:element minOccurs="0" name="ContactId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="InitTime" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ConsumerContract" nillable="true" type="tns:ConsumerContract" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ContactContract" nillable="true" type="tns:ContactContract" />
+  <xs:element name="ArrayOfConsumerContract" nillable="true" type="tns:ArrayOfConsumerContract" />
   <xs:complexType name="DialogContract">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
@@ -28,6 +26,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DialogContract" nillable="true" type="tns:DialogContract" />
+  <xs:complexType name="ArrayOfDialogContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DialogContract" nillable="true" type="tns:DialogContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDialogContract" nillable="true" type="tns:ArrayOfDialogContract" />
+  <xs:complexType name="ContactContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContactId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InitTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContactContract" nillable="true" type="tns:ContactContract" />
+  <xs:complexType name="ArrayOfContactContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ContactContract" nillable="true" type="tns:ContactContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfContactContract" nillable="true" type="tns:ArrayOfContactContract" />
   <xs:complexType name="ArrayOfMessageContract">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="MessageContract" nillable="true" type="tns:MessageContract" />
@@ -59,16 +77,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="MultimediaContract" nillable="true" type="tns:MultimediaContract" />
-  <xs:complexType name="ArrayOfConsumerContract">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ConsumerContract" nillable="true" type="tns:ConsumerContract" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfConsumerContract" nillable="true" type="tns:ArrayOfConsumerContract" />
-  <xs:complexType name="ArrayOfDialogContract">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="DialogContract" nillable="true" type="tns:DialogContract" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfDialogContract" nillable="true" type="tns:ArrayOfDialogContract" />
 </xs:schema>

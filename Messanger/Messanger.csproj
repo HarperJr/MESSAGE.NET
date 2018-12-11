@@ -15,8 +15,8 @@
     <RootNamespace>Messanger</RootNamespace>
     <AssemblyName>Messanger</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <UseIISExpress>false</UseIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort>44373</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
@@ -147,10 +147,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\DataService\DataService.disco" />
-    <None Include="Connected Services\DataService\configuration91.svcinfo" />
-    <None Include="Connected Services\DataService\configuration.svcinfo" />
-    <None Include="Connected Services\DataService\Reference.svcmap">
+    <None Include="Connected Services\DataServiceWcf\DataService.disco" />
+    <None Include="Connected Services\DataServiceWcf\configuration91.svcinfo" />
+    <None Include="Connected Services\DataServiceWcf\configuration.svcinfo" />
+    <None Include="Connected Services\DataServiceWcf\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -162,16 +162,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Http\MessangerHandler.ashx" />
-    <None Include="Connected Services\DataService\DataService.wsdl" />
-    <None Include="Connected Services\DataService\DataService.xsd">
+    <None Include="Connected Services\DataServiceWcf\DataService.wsdl" />
+    <None Include="Connected Services\DataServiceWcf\DataService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DataService\DataService1.xsd">
+    <None Include="Connected Services\DataServiceWcf\DataService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DataService\DataService2.xsd">
+    <None Include="Connected Services\DataServiceWcf\DataService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Http\MultimediaHandler.ashx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -179,6 +180,7 @@
     <Content Include="Properties\DataSources\DataService.DialogContract.datasource" />
     <Content Include="Properties\DataSources\DataService.MessageContract.datasource" />
     <Content Include="Properties\DataSources\DataService.MultimediaContract.datasource" />
+    <Content Include="Properties\DataSources\DataService.ContactContract.datasource" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -189,29 +191,35 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="Connected Services\DataService\Reference.cs">
+    <Compile Include="Connected Services\DataServiceWcf\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\DataMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Http\MessangerHandler.ashx.cs">
       <DependentUpon>MessangerHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Http\Models\DialogsRequest.cs" />
+    <Compile Include="Http\MultimediaHandler.ashx.cs">
+      <DependentUpon>MultimediaHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Logger\Logger.cs" />
-    <Compile Include="Models\Consumer.cs" />
-    <Compile Include="Models\Contact.cs" />
-    <Compile Include="Models\Dialog.cs" />
-    <Compile Include="Models\Message.cs" />
+    <Compile Include="Data\Models\Consumer.cs" />
+    <Compile Include="Data\Models\Contact.cs" />
+    <Compile Include="Data\Models\Dialog.cs" />
+    <Compile Include="Data\Models\Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
     <Compile Include="Providers\MessageProvider.cs" />
-    <Compile Include="Repositories\Base\IContactRepository.cs" />
-    <Compile Include="Repositories\ContactRepository.cs" />
+    <Compile Include="Repositories\Base\IRepository.cs" />
+    <Compile Include="Repositories\ConsumerRepository.cs" />
+    <Compile Include="Repositories\IConsumerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -249,7 +257,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\DataService\" />
+    <WCFMetadataStorage Include="Connected Services\DataServiceWcf\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -266,7 +274,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56518</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56518/</IISUrl>
+          <IISUrl>http://localhost/Messanger</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://localhost:56518/</CustomServerUrl>

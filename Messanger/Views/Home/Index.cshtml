@@ -1,4 +1,4 @@
-﻿@model Messanger.Models.Consumer
+﻿@model Messanger.Data.Models.Consumer
 
 <style>
     ul li {
@@ -85,13 +85,12 @@
             method: "post",
             data: {
                 uid: uid,
-                from: from,
-                to: portion
+                offset: from,
+                limit: portion
             },
             error: function () { },
             success: function (view) {
                 $("#dialogsContainer").html(view);
-                messanger.dialogsLoaded += messanger.dialogsPortion;
             }
         });
     }
