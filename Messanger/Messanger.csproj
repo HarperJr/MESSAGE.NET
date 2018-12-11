@@ -147,13 +147,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\DataServiceWcf\DataService.disco" />
-    <None Include="Connected Services\DataServiceWcf\configuration91.svcinfo" />
-    <None Include="Connected Services\DataServiceWcf\configuration.svcinfo" />
-    <None Include="Connected Services\DataServiceWcf\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Content\material-components-min-web.css" />
     <Content Include="Content\stylesheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -162,16 +155,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Http\MessangerHandler.ashx" />
-    <None Include="Connected Services\DataServiceWcf\DataService.wsdl" />
-    <None Include="Connected Services\DataServiceWcf\DataService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DataServiceWcf\DataService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DataServiceWcf\DataService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Http\MultimediaHandler.ashx" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
@@ -191,20 +174,29 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="Connected Services\DataServiceWcf\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Data\DataMapper.cs" />
+    <Compile Include="Database\Dao\Base\IDao.cs" />
+    <Compile Include="Database\Dao\ConsumerDao.cs" />
+    <Compile Include="Database\Dao\DialogDao.cs" />
+    <Compile Include="Database\DataMapper.cs" />
+    <Compile Include="Database\LocalDbContext.cs" />
+    <Compile Include="Database\Models\AttachedMultimedia.cs" />
+    <Compile Include="Database\Models\Consumer.cs" />
+    <Compile Include="Database\Models\Contact.cs" />
+    <Compile Include="Database\Models\Dialog.cs" />
+    <Compile Include="Database\Models\DialogParticipant.cs" />
+    <Compile Include="Database\Models\Message.cs" />
+    <Compile Include="Database\Models\Multimedia.cs" />
+    <Compile Include="Data\Models\Multimedia.cs" />
+    <Compile Include="Data\Models\Participant.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Http\MessangerHandler.ashx.cs">
       <DependentUpon>MessangerHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Http\Models\ConsumersRequest.cs" />
     <Compile Include="Http\Models\DialogsRequest.cs" />
     <Compile Include="Http\MultimediaHandler.ashx.cs">
       <DependentUpon>MultimediaHandler.ashx</DependentUpon>
@@ -214,12 +206,19 @@
     <Compile Include="Data\Models\Contact.cs" />
     <Compile Include="Data\Models\Dialog.cs" />
     <Compile Include="Data\Models\Message.cs" />
+    <Compile Include="Migrations\201812112203344_Init.cs" />
+    <Compile Include="Migrations\201812112203344_Init.Designer.cs">
+      <DependentUpon>201812112203344_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
     <Compile Include="Providers\MessageProvider.cs" />
     <Compile Include="Repositories\Base\IRepository.cs" />
     <Compile Include="Repositories\ConsumerRepository.cs" />
+    <Compile Include="Repositories\DialogRepository.cs" />
     <Compile Include="Repositories\IConsumerRepository.cs" />
+    <Compile Include="Repositories\IDialogRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -233,6 +232,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Auth\SignUp.cshtml" />
     <Content Include="Views\Home\Dialogs.cshtml" />
+    <Content Include="Views\Home\Consumers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,17 +247,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AuthService\AuthService.csproj">
-      <Project>{cd6577b1-3138-4209-a0a2-ac7026eb4696}</Project>
-      <Name>AuthService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataService\DataService.csproj">
-      <Project>{610896e8-34d9-43cb-afe6-2f4ef53040af}</Project>
-      <Name>DataService</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\DataServiceWcf\" />
+    <EmbeddedResource Include="Migrations\201812112203344_Init.resx">
+      <DependentUpon>201812112203344_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

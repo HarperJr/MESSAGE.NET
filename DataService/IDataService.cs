@@ -11,6 +11,9 @@ namespace DataService {
     [ServiceContract]
     public interface IDataService {
 
+        [OperationContract]
+        string GetTestString();
+
         #region Consumers
 
         [OperationContract]

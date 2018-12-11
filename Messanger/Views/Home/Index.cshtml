@@ -7,10 +7,18 @@
         padding: 15px;
     }
 
-    ul li:hover {
-        background: #b6ff00;
-    }
+        ul li:hover {
+            background: #b6ff00;
+        }
 </style>
+
+<div id="consumersDialog" class="mdc-card" style="
+    position:absolute;
+    width: 400px;
+    height: 320px;
+    visibility:collapse;">
+
+</div>
 
 <div style="
     width: 860px;
@@ -25,6 +33,7 @@
     <div id="dialogs" class="mdc-card" style="
     flex-basis: 200px;
     flex: 2;">
+
         <div id="container" style="
     position:inherit;
     margin:16px;
@@ -37,33 +46,60 @@
                 </li>
             </ul>
         </div>
+
         <div id="dialogsContainer" style="
     position:inherit;
     margin:16px;
     background:#0094ff">
-            
+
         </div>
+
     </div>
+
     <div id="content" style="
     margin-left: 20px;
     flex: 5;
     flex-direction: column">
+
         <div class="mdc-card" style="
     flex: 6;">
 
+            <div id="contentHeader" style="
+    position:inherit;
+    width:inherit;
+    height:64px;">
+                <div style="
+    float:right;
+    justify-content:center">
+
+                    <div>
+                        <form>
+                            <input id="comsumersSearch" type="search" placeholder="Search others..." name="name"/>
+                            <button type="button" onclick="onSearchButtonClicked()" class="mdc-button" />
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
+
         <div class="mdc-card" style="
     margin-top: 20px;
     flex: 1;">
+
             <div style="
                  margin: 16px">
                 <form>
-                    <input type="text" style="position:relative" />
-                    <button type="button" class="mdc-button mdc-button--dense" name="sendMessage" onclick="onSendMessageClicked()"/>
+                    <input id="messageBox" type="text" style="position:relative" />
+                    <button type="button" class="mdc-button mdc-button--dense" name="sendMessage" onclick="onSendMessageClicked()" />
                 </form>
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 <script>
@@ -72,7 +108,9 @@
         dialogsLoaded: 0,
         dialogsPortion: 10,
         messagesLoaded: 0,
-        messagesPortion: 30
+        messagesPortion: 30,
+        consumersLoaded: 0,
+        consumersPortion: 30
     }
 
     $(function () {
@@ -90,23 +128,56 @@
             },
             error: function () { },
             success: function (view) {
+                $("consumersDialog").show();
                 $("#dialogsContainer").html(view);
             }
         });
     }
 
+    function searchConsumersAsync(name, from, portion) {
+         $.ajax({
+            url: "@Url.Action("Consumers", "Home")",
+            method: "post",
+            data: {
+                name: name,
+                offset: from,
+                limit: portion
+            },
+             success: function (view) {
+                
+                $("#consumersDialog").html(view);
+             },
+             error: function () {
+                 alert("Unable to find others with tag " + name);
+             }
+        });
+    }
+
     function sendMessageAsync(message) {
         $.ajax({
-            
+
         });
     }
 
     function onSendMessageClicked() {
         alert("onSendMessageClicked");
+
     }
 
     function onDialogClicked(dialog) {
         alert("onDialogClicked " + dialog);
+
+    }
+
+    function onConsumerClicked(consumer) {
+        alert("onConsumerClicked " + consumer);
+
+    }
+
+    function onSearchButtonClicked() {
+        searchConsumersAsync($("#comsumersSearch").val(),
+            messanger.consumersLoaded,
+            messanger.consumersPortion);
     }
 
 </script>

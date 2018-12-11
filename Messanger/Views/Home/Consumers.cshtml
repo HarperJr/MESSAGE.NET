@@ -1,0 +1,12 @@
+﻿@model ICollection<Messanger.Data.Models.Consumer>
+
+<div>
+    <ul>
+        @{
+            foreach (var consumer in Model) {
+                <li onclick="onConsumerClicked(@consumer.Id)">@consumer.Name</li>
+            }
+        }
+    </ul>
+</div>
+

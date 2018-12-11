@@ -8,8 +8,12 @@ namespace Messanger.Data.Models {
 
         public int Id { get; set; }
 
+        public string OwnerId { get; set; }
+
+        public string Shortcut { get; set; }
+
         public string Title { get; set; }
 
-        public string MultimediaId { get; set; }
+        public DateTime InitDate { get; set; }
     }
 }

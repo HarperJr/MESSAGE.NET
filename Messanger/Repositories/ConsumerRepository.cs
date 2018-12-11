@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
-using DataService;
+using Database;
 using Messanger.Data;
 using Messanger.Data.Models;
-using Messanger.DataServiceWcf;
+using Messanger.Database;
+using Messanger.Database.Dao;
+using Messanger.DataBase.Dao;
 using System;
 using System.Collections.Generic;
 
@@ -10,11 +12,11 @@ namespace Messanger.Repositories {
     public class ConsumerRepository : IConsumerRepository {
 
         private readonly IMapper _mapper;
-        private readonly DataServiceClient _dataServiceClient;
+        private readonly ConsumerDao _consumerDao;
 
-        public ConsumerRepository() {
+        public ConsumerRepository(LocalDbContext localDbContext) {
             _mapper = DataMapper.Initialize();
-            _dataServiceClient = new DataServiceClient();
+            _consumerDao = new ConsumerDao(localDbContext);
         }
 
         public void Delete(Consumer model) {
@@ -22,17 +24,17 @@ namespace Messanger.Repositories {
         }
 
         public Consumer GetById(string id) {
-            return _mapper.Map<Consumer>(_dataServiceClient.GetConsumerById(id));
+            return _mapper.Map<Consumer>(_consumerDao.GetById(id));
         }
 
         public ICollection<Consumer> GetMatchNameWithOffsetAndLimit(string name, int offset, int limit) {
             return _mapper.Map<ICollection<Consumer>>(
-                _dataServiceClient.GetConsumersMatchNameWithOffsetAndLimit(name, offset, limit)
+                _consumerDao.GetConsumersMatchNameWithOffsetAndLimit(name, offset, limit)
                 );
         }
 
         public void Insert(Consumer model) {
-            _dataServiceClient.InsertConsumer(_mapper.Map<ConsumerContract>(model));
+            _consumerDao.Insert(_mapper.Map<Database.Models.Consumer>(model));
         }
     }
 }

@@ -7,7 +7,7 @@ using DataService.Data.Models;
 using System.ServiceModel;
 
 namespace DataService {
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
+    [ServiceBehavior]
     public class DataService : IDataService {
 
         private readonly IMapper _mapper;
@@ -16,6 +16,10 @@ namespace DataService {
         public DataService() {
             _mapper = DataMapper.Initialize();
             _localDbContext = new LocalDbContext();
+        }
+
+        public string GetTestString() {
+            return "This is the test string";
         }
 
         public ICollection<MultimediaContract> GetAttachedMultimediasByMessageId(string messageId) {
