@@ -7,9 +7,8 @@ using System.Web;
 
 namespace DataService.Data {
     public class DataMapper {
-        public static void Configure() {
-            Mapper.Initialize(cfg => {
-
+        public static IMapper Initialize() {
+            return new MapperConfiguration(cfg => {
                 #region Model to Contract
 
                 cfg.CreateMap<Consumer, ConsumerContract>()
@@ -49,7 +48,7 @@ namespace DataService.Data {
                 cfg.CreateMap<MultimediaContract, Multimedia>();
 
                 #endregion
-            });
+            }).CreateMapper();
         }
     }
 }

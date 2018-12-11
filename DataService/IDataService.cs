@@ -8,50 +8,64 @@ using System.Text;
 
 namespace DataService {
 
-    [ServiceContract(CallbackContract = typeof(IDataDuplexCallback))]
+    [ServiceContract]
     public interface IDataService {
+
+        #region Consumers
 
         [OperationContract]
         void InsertConsumer(ConsumerContract consumerContract);
 
         [OperationContract]
-        void InsertConsumerContact(string consumerId, ContactContract contactContract);
+        ICollection<ConsumerContract> GetConsumersMatchNameWithOffsetAndLimit(string name, int offset, int limit);
+
+        [OperationContract]
+        ConsumerContract GetConsumerById(string id);
+
+        #endregion
+
+        #region Dialogs
 
         [OperationContract]
         void InsertDialog(DialogContract dialogContract);
 
         [OperationContract]
+        ICollection<DialogContract> GetDialogsByConsumerIdWithOffsetAndLimit(string consumerId, int offset, int limit);
+
+        #endregion
+
+        #region Contacts
+
+        [OperationContract]
+        void InsertConsumerContact(string consumerId, ContactContract contactContract);
+
+        [OperationContract]
+        ICollection<ContactContract> GetConsumerContactsById(string id);
+
+        #endregion
+
+        #region Messages
+
+        [OperationContract]
         void InsertMessages(ICollection<MessageContract> messages);
 
         [OperationContract]
-        void InsertMultimedias(ICollection<MultimediaContract> multimedias);
-
-        [OperationContract]
-        ICollection<ConsumerContract> GetConsumerContactsById(string id);
-
-        [OperationContract]
-        ConsumerContract GetConsumerDataById(string id);
-
-        [OperationContract]
-        ICollection<DialogContract> GetDialogsByConsumerIdWithOffsetAndLimit(string consumerId, int offset, int limit);
-
-        [OperationContract]
         ICollection<MessageContract> GetMessagesByDialogIdWithOffsetAndLimit(int dialogId, int offset, int limit);
+
+        #endregion
+
+        #region Multimedias
+
+        [OperationContract]
+        void InsertMultimedias(ICollection<MultimediaContract> multimedias);
 
         [OperationContract]
         ICollection<MultimediaContract> GetAttachedMultimediasByMessageId(string messageId);
 
         [OperationContract]
         MultimediaContract GetMultimediaById(string id);
-    }
 
-    public interface IDataDuplexCallback {
-
-        [OperationContract(IsOneWay = true)]
-        void OnComplete();
-
-        [OperationContract(IsOneWay = true)]
-        void OnError();
+        #endregion
     }
 
     [DataContract]

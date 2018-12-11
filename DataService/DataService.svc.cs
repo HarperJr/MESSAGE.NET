@@ -7,49 +7,34 @@ using DataService.Data.Models;
 using System.ServiceModel;
 
 namespace DataService {
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class DataService : IDataService {
 
-        const int DATA_CHANGE_REFUSED = 0;
-        const int DATA_CHANGED = 1;
-
-        private IDataDuplexCallback Callback => OperationContext.Current.GetCallbackChannel<IDataDuplexCallback>();
-
-        private readonly LocalDbContext _localDbContext = new LocalDbContext();
+        private readonly IMapper _mapper;
+        private readonly LocalDbContext _localDbContext;
         
         public DataService() {
-            DataMapper.Configure();
-        }
-
-        private void SaveChanges() {
-            switch(_localDbContext.SaveChanges()) {
-                case DATA_CHANGED: {
-                        Callback.OnComplete();
-                        break;
-                    }
-                case DATA_CHANGE_REFUSED: {
-                        Callback.OnError();
-                        break;
-                    }
-            }
+            _mapper = DataMapper.Initialize();
+            _localDbContext = new LocalDbContext();
         }
 
         public ICollection<MultimediaContract> GetAttachedMultimediasByMessageId(string messageId) {
-            return Mapper.Map<ICollection<MultimediaContract>>(
+            return _mapper.Map<ICollection<MultimediaContract>>(
                 _localDbContext.AttachedMultimedia.Where(multimedia => multimedia.Message.Id.Equals(messageId)));
         }
 
-        public ICollection<ConsumerContract> GetConsumerContactsById(string id) {
-            return Mapper.Map<ICollection<ConsumerContract>>(
+        public ICollection<ContactContract> GetConsumerContactsById(string id) {
+            return _mapper.Map<ICollection<ContactContract>>(
                 _localDbContext.Contacts.Where(contact => contact.InitialConsumer.Id.Equals(id)));
         }
 
-        public ConsumerContract GetConsumerDataById(string id) {
-           return Mapper.Map<ConsumerContract>(
+        public ConsumerContract GetConsumerById(string id) {
+           return _mapper.Map<ConsumerContract>(
                _localDbContext.Consumers.Find(id));
         }
 
         public ICollection<DialogContract> GetDialogsByConsumerIdWithOffsetAndLimit(string consumerId, int offset, int limit) {
-            return Mapper.Map<ICollection<DialogContract>>(
+            return _mapper.Map<ICollection<DialogContract>>(
                 _localDbContext.DialogParticipants.Where(part => part.Participant.Id.Equals(consumerId))
                 .Select(part => part.Dialog)
                 .Skip(offset)
@@ -59,7 +44,7 @@ namespace DataService {
         }
 
         public ICollection<MessageContract> GetMessagesByDialogIdWithOffsetAndLimit(int dialogId, int offset, int limit) {
-            return Mapper.Map<ICollection<MessageContract>>(
+            return _mapper.Map<ICollection<MessageContract>>(
                 _localDbContext.Messages.Where(message => message.Dialog.Id.Equals(dialogId))
                 .Reverse()
                 .Skip(offset)
@@ -67,35 +52,43 @@ namespace DataService {
                 );
         }
 
+        public ICollection<ConsumerContract> GetConsumersMatchNameWithOffsetAndLimit(string name, int offset, int limit) {
+            return _mapper.Map<ICollection<ConsumerContract>>(
+                _localDbContext.Consumers.Where(consumer => consumer.Name.Contains(name))
+                .Skip(offset)
+                .Take(limit)
+                );
+        }
+
         public MultimediaContract GetMultimediaById(string id) {
-            return Mapper.Map<MultimediaContract>(
+            return _mapper.Map<MultimediaContract>(
                 _localDbContext.Multimedia.Find(id)
                 );
         }
 
         public void InsertMultimedias(ICollection<MultimediaContract> multimedias) {
-            _localDbContext.Multimedia.AddRange(Mapper.Map<ICollection<Multimedia>>(multimedias));
-            SaveChanges();
+            _localDbContext.Multimedia.AddRange(_mapper.Map<ICollection<Multimedia>>(multimedias));
+            _localDbContext.SaveChanges();
         }
 
         public void InsertConsumer(ConsumerContract consumerContract) {
-            _localDbContext.Consumers.Add(Mapper.Map<Consumer>(consumerContract));
-            SaveChanges();
+            _localDbContext.Consumers.Add(_mapper.Map<Consumer>(consumerContract));
+            _localDbContext.SaveChanges();
         }
 
         public void InsertConsumerContact(string consumerId, ContactContract contactContract) {
-            _localDbContext.Contacts.Add(Mapper.Map<Contact>(contactContract));
-            SaveChanges();
+            _localDbContext.Contacts.Add(_mapper.Map<Contact>(contactContract));
+            _localDbContext.SaveChanges();
         }
 
         public void InsertDialog(DialogContract dialogContract) {
-            _localDbContext.Dialogs.Add(Mapper.Map<Dialog>(dialogContract));
-            SaveChanges();
+            _localDbContext.Dialogs.Add(_mapper.Map<Dialog>(dialogContract));
+            _localDbContext.SaveChanges();
         }
 
         public void InsertMessages(ICollection<MessageContract> messages) {
-            _localDbContext.Messages.AddRange(Mapper.Map<ICollection<Message>>(messages));
-            SaveChanges();
+            _localDbContext.Messages.AddRange(_mapper.Map<ICollection<Message>>(messages));
+            _localDbContext.SaveChanges();
         }
     }
 }
