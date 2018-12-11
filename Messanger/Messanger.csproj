@@ -176,6 +176,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Database\AuthDbContext.cs" />
     <Compile Include="Database\Dao\Base\IDao.cs" />
     <Compile Include="Database\Dao\ConsumerDao.cs" />
     <Compile Include="Database\Dao\DialogDao.cs" />

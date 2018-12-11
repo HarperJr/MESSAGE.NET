@@ -24,6 +24,7 @@ namespace Messanger.Controllers
         public HomeController() {
             _localDbContext = new LocalDbContext();
             _consumerRepository = new ConsumerRepository(_localDbContext);
+            _dialogRepository = new DialogRepository(_localDbContext);
         }
 
         // GET: Home
@@ -36,6 +37,9 @@ namespace Messanger.Controllers
         public ActionResult Dialogs(DialogsRequest request) {
             ICollection<Dialog> dialogs = _dialogRepository
                 .GetDialogsByConsumerIdWithOffsetAndLimit(request.Uid, request.Offset, request.Limit);
+            if (dialogs == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             return PartialView(dialogs);
         }
 

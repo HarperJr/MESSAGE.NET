@@ -8,6 +8,8 @@ namespace Messanger.Controllers
 {
     public class AuthController : Controller
     {
+
+
         // GET: Auth
         public ActionResult SignUp()
         {
