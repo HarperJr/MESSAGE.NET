@@ -7,15 +7,15 @@
     left: 0;
     right: 0;
     padding: 24px;">
-   
-    <form action="@Url.Action("Identify", "Auth")" method="post">
+
+    <form action="@Url.Action("Authorize", "Auth")" method="post">
         <div style="
         flex-direction: column;
         margin-left: 48px;
         margin-right: 48px;
         align-items: center;">
             <div>
-                <h2>SIGN UP</h2>
+                <h2>SIGN IN</h2>
             </div>
             <div class="mdc-text-field mdc-text-field--outlined" style="
     height: 48px;
@@ -35,29 +35,12 @@
 
                 </div>
             </div>
-            <div class="mdc-text-field mdc-text-field--outlined" style="
-    height: 48px;
-    margin-top: 24px;">
-                <input type="text" id="tf-outlined" class="mdc-text-field__input" name="confirmPassword">
-                <label for="tf-outlined" class="mdc-floating-label">Confirm Password</label>
-                <div class="mdc-notched-outline__idle">
-
-                </div>
-            </div>
-            <div class="mdc-text-field mdc-text-field--outlined" style="
-    height: 48px;
-    margin-top: 24px;">
-                <input type="text" id="tf-outlined" class="mdc-text-field__input" name="phoneNumber">
-                <label for="tf-outlined" class="mdc-floating-label">Your Phone</label>
-                <div class="mdc-notched-outline__idle">
-
-                </div>
-            </div>
             <div class="mdc-card__action-buttons" style="
     margin-top: 24px;">
-                <button type="submit" class="mdc-button">Sign Up</button>
+                <button type="submit" class="mdc-button">Sign In</button>
             </div>
         </div>
     </form>
-    
+
 </div>
+

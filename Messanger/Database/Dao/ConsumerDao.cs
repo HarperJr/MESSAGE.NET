@@ -18,8 +18,7 @@ namespace Messanger.Database.Dao {
         public ICollection<Consumer> GetConsumersMatchNameWithOffsetAndLimit(string name, int offset, int limit) {
             return _localDbContext
                 .Consumers.Where(consumer => consumer.Name.Contains(name))
-                .Skip(offset)
-                .Take(limit)
+ 
                 .ToList();
         }
 

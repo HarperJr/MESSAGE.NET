@@ -180,6 +180,8 @@
     <Compile Include="Database\Dao\Base\IDao.cs" />
     <Compile Include="Database\Dao\ConsumerDao.cs" />
     <Compile Include="Database\Dao\DialogDao.cs" />
+    <Compile Include="Database\Dao\MessageDao.cs" />
+    <Compile Include="Database\Dao\ParticipantDao.cs" />
     <Compile Include="Database\DataMapper.cs" />
     <Compile Include="Database\LocalDbContext.cs" />
     <Compile Include="Database\Models\AttachedMultimedia.cs" />
@@ -194,11 +196,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Http\DataTypes\WebSocketRequestType.cs" />
     <Compile Include="Http\MessangerHandler.ashx.cs">
       <DependentUpon>MessangerHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Http\Models\AuthorizationRequest.cs" />
     <Compile Include="Http\Models\ConsumersRequest.cs" />
     <Compile Include="Http\Models\DialogsRequest.cs" />
+    <Compile Include="Http\Models\IdentificationRequest.cs" />
     <Compile Include="Http\MultimediaHandler.ashx.cs">
       <DependentUpon>MultimediaHandler.ashx</DependentUpon>
     </Compile>
@@ -217,9 +222,15 @@
     <Compile Include="Providers\MessageProvider.cs" />
     <Compile Include="Repositories\Base\IRepository.cs" />
     <Compile Include="Repositories\ConsumerRepository.cs" />
+    <Compile Include="Repositories\ContactRepository.cs" />
     <Compile Include="Repositories\DialogRepository.cs" />
     <Compile Include="Repositories\IConsumerRepository.cs" />
+    <Compile Include="Repositories\IContactRepository.cs" />
     <Compile Include="Repositories\IDialogRepository.cs" />
+    <Compile Include="Repositories\IMessageRepository.cs" />
+    <Compile Include="Repositories\IParticipantRepository.cs" />
+    <Compile Include="Repositories\MessageRepository.cs" />
+    <Compile Include="Repositories\ParticipantRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -234,6 +245,7 @@
     <Content Include="Views\Auth\SignUp.cshtml" />
     <Content Include="Views\Home\Dialogs.cshtml" />
     <Content Include="Views\Home\Consumers.cshtml" />
+    <Content Include="Views\Auth\SignIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

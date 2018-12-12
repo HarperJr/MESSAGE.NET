@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Web;
 
 namespace Messanger.Repositories {
-    public interface IDialogRepository : IRepository<Dialog, int> {
+    public interface IParticipantRepository : IRepository<Participant, int> {
 
-        ICollection<Dialog> GetDialogsByConsumerIdWithOffsetAndLimit(string consumerId, int offset, int limit);
+        ICollection<Participant> GetParticipantsByDialogId(int dialogId);
     }
 }

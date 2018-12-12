@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Messanger.DataBase.Dao.Base {
+namespace Messanger.Database.Dao.Base {
     public interface IDao<Entity, Id> {
         Entity GetById(Id id);
 
