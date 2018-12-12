@@ -27,11 +27,11 @@ namespace Messanger.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Time = c.DateTime(nullable: false),
+                        Time = c.Long(nullable: false),
                         Content = c.String(),
                         HasMultimedia = c.Boolean(nullable: false),
                         Viewed = c.Boolean(nullable: false),
-                        Dialog_Id = c.Int(),
+                        Dialog_Id = c.String(maxLength: 128),
                         Sender_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
@@ -44,9 +44,9 @@ namespace Messanger.Migrations
                 "dbo.Dialogs",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.String(nullable: false, maxLength: 128),
                         Title = c.String(maxLength: 32),
-                        InitDate = c.DateTime(nullable: false),
+                        InitTime = c.Long(nullable: false),
                         Owner_Id = c.String(maxLength: 128),
                         Shortcut_Id = c.String(maxLength: 64),
                     })
@@ -63,7 +63,7 @@ namespace Messanger.Migrations
                         Id = c.String(nullable: false, maxLength: 128),
                         Name = c.String(maxLength: 64),
                         PhoneNumber = c.String(maxLength: 16),
-                        LastTimeOnline = c.DateTime(nullable: false),
+                        LastTimeOnline = c.Long(nullable: false),
                         Avatar_Id = c.String(maxLength: 64),
                     })
                 .PrimaryKey(t => t.Id)
@@ -86,7 +86,7 @@ namespace Messanger.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        InitTime = c.DateTime(nullable: false),
+                        InitTime = c.Long(nullable: false),
                         Status = c.String(maxLength: 32),
                         InitialConsumer_Id = c.String(maxLength: 128),
                         RelatedConsumer_Id = c.String(maxLength: 128),
@@ -102,7 +102,7 @@ namespace Messanger.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Dialog_Id = c.Int(),
+                        Dialog_Id = c.String(maxLength: 128),
                         Invitor_Id = c.String(maxLength: 128),
                         Participant_Id = c.String(maxLength: 128),
                     })

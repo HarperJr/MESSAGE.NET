@@ -13,7 +13,7 @@ namespace Messanger.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201812112203344_Init"; }
+            get { return "201812122037293_Init"; }
         }
         
         string IMigrationMetadata.Source

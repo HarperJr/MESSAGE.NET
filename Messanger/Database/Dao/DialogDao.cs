@@ -1,6 +1,6 @@
 ﻿using Database;
+using Messanger.Database.Dao.Base;
 using Messanger.Database.Models;
-using Messanger.DataBase.Dao.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,6 @@ namespace Messanger.Database.Dao {
                 .DialogParticipants
                 .Where(participant => participant.Participant.Id.Equals(consumerId))
                 .Select(participant => participant.Dialog)
-                .Skip(offset)
                 .Take(limit)
                 .ToList(); 
         }

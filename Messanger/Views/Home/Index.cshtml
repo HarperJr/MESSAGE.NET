@@ -12,31 +12,20 @@
         }
 </style>
 
-<div id="consumerDialog" class="mdc-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
-     aria-describedby="my-dialog-content">
-    <div class="mdc-dialog__container">
-        <div class="mdc-dialog__surface">
-            <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-            <h2 class="mdc-dialog__title" id="my-dialog-title">
-                <!--
-                -->
-                Dialog Title
-                <!--
-                -->
-            </h2>
-            <div class="mdc-dialog__content" id="my-dialog-content">
-                Dialog body text goes here.
+<div class="modal fade" id="consumersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <footer class="mdc-dialog__actions">
-                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="no">No</button>
-                <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes">Yes</button>
-            </footer>
+            <div id="consumersContainer" class="modal-body">
+                
+            </div>
         </div>
     </div>
-    <div class="mdc-dialog__scrim"></div>
 </div>
 
 <div style="
@@ -94,7 +83,7 @@
                     <div>
                         <form>
                             <input id="comsumersSearch" type="search" placeholder="Search others..." name="name"/>
-                            <button type="button" onclick="onSearchButtonClicked()" class="mdc-button" />
+                            <button type="button" onclick="onSearchButtonClicked()" class="btn">Search</button>
                         </form>
                     </div>
 
@@ -111,7 +100,7 @@
                  margin: 16px">
                 <form>
                     <input id="messageBox" type="text" style="position:relative" />
-                    <button type="button" class="mdc-button mdc-button--dense" name="sendMessage" onclick="onSendMessageClicked()" />
+                    <button type="button" class="btn" name="sendMessage" onclick="onSendMessageClicked()">Send</button>
                 </form>
             </div>
 
@@ -136,11 +125,6 @@
         loadDialogsAsync(messanger.identifier, messanger.dialogsLoaded, messanger.dialogsPortion);
     });
 
-    import MDCList from 'material/list'
-    const dialog = new MDCList($("#consumerDialog"));
-
-    dialog.listen
-
     function loadDialogsAsync(uid, from, portion) {
         $.ajax({
             url: "@Url.Action("Dialogs", "Home")",
@@ -152,7 +136,6 @@
             },
             error: function () { },
             success: function (view) {
-                $("consumersDialog").show();
                 $("#dialogsContainer").html(view);
             }
         });
@@ -168,8 +151,8 @@
                 limit: portion
             },
              success: function (view) {
-                
-                $("#consumersDialog").html(view);
+                 $("#consumersContainer").html(view);
+                 $("#consumersModal").modal('show')
              },
              error: function () {
                  alert("Unable to find others with tag " + name);
@@ -202,6 +185,13 @@
         searchConsumersAsync($("#comsumersSearch").val(),
             messanger.consumersLoaded,
             messanger.consumersPortion);
+    }
+
+    function connect() {
+        var socket = new WebSocket("ws://localhost/Messanger");
+        socket.onclose = function (event) {
+
+        }
     }
 
 </script>

@@ -119,9 +119,10 @@ namespace Messanger.Http {
             int dialogId = message.Value<int>("dialogId");
             string content = message.Value<string>("content");
 
-            JObject response = new JObject();
-            response.Add("senderId", guid);
-            response.Add("message", message);
+            JObject response = new JObject {
+                { "senderId", guid },
+                { "message", message }
+            };
 
             _messageRepository.Insert(new Message {
                 DialogId = dialogId,
@@ -134,21 +135,61 @@ namespace Messanger.Http {
 
             ICollection<Participant> participants = _participantRepository.GetParticipantsByDialogId(dialogId);
             foreach (Participant participant in participants) {
-                WebSocket receiverSocket = _sockets[participant.Id];
+                WebSocket receiverSocket = _sockets[participant.ParticipantId];
                 await SendJsonResponseAsync(receiverSocket, response);
             }
         }
 
         private async Task HandleInviting(string guid, JObject jsonRequest) {
+            string receiver = jsonRequest.GetValue("receiverId").Value<string>();
+            bool accepted = jsonRequest.GetValue("accepted").Value<bool>();
 
+            JObject response = new JObject {
+                { "senderId", guid },
+                { "accepted", accepted }
+            };
+
+            if (accepted) {
+                string dialogId = new Guid().ToString();
+                response.Add("dialogId", dialogId);
+                _dialogRepository.Insert(new Dialog {
+                    Id = dialogId,
+                    InitTime = DateTime.UtcNow,
+                    OwnerId = guid,
+                });
+                _participantRepository.Insert(new Participant {
+                    DialogId = dialogId,
+                    InvitorId = guid,
+                    ParticipantId = guid,
+                });
+                _participantRepository.Insert(new Participant {
+                    DialogId = dialogId,
+                    InvitorId = guid,
+                    ParticipantId = receiver
+                });
+            }
+            await SendJsonResponseAsync(_sockets[guid], response);
+            await SendJsonResponseAsync(_sockets[receiver], response);
         }
 
         private async Task HandleNotifying(string guid, JObject jsonRequest) {
 
         }
-
+   
         private async Task HandleContactAdding(string guid, JObject jsonRequest) {
+            string receiver = jsonRequest.GetValue("receiverId").Value<string>();
 
+            _contactRepository.Insert(new Contact {
+                InitTime = DateTime.UtcNow,
+                InitialConsumerId = guid,
+                RelatedConsumerId = receiver,
+                Status = "Unaccepted"
+            });
+
+            JObject response = new JObject {
+                { "senderId", guid },
+            };
+            await SendJsonResponseAsync(_sockets[receiver], response);
         }
 
         public bool IsReusable {

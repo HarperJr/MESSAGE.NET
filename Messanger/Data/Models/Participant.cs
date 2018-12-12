@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Messanger.Data.Models {
     public class Participant {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
-        public int DialogId { get; set; }
+        public string DialogId { get; set; }
 
         public string ParticipantId { get; set; }
 

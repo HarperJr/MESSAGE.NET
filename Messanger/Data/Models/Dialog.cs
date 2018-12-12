@@ -6,7 +6,7 @@ using System.Web;
 namespace Messanger.Data.Models {
     public class Dialog {
 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string OwnerId { get; set; }
 
@@ -14,6 +14,6 @@ namespace Messanger.Data.Models {
 
         public string Title { get; set; }
 
-        public DateTime InitDate { get; set; }
+        public DateTime InitTime { get; set; }
     }
 }

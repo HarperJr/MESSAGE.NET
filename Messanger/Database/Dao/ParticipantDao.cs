@@ -1,5 +1,5 @@
-﻿using Messanger.Database.Models;
-using Messanger.DataBase.Dao.Base;
+﻿using Messanger.Database.Dao.Base;
+using Messanger.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,12 @@ namespace Messanger.Database.Dao {
 
         public ParticipantDao(LocalDbContext localDbContext) {
             _localDbContext = localDbContext;
+        }
+
+        public DialogParticipant GetParticipantById(string participantId) {
+            return _localDbContext
+                .DialogParticipants.Where(participant => participant.Participant.Id.Equals(participantId))
+                .First();
         }
 
         public ICollection<DialogParticipant> GetParticipantsByDialogId(int dialogId) {

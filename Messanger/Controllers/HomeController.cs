@@ -30,7 +30,7 @@ namespace Messanger.Controllers
         // GET: Home
         public ActionResult Index() {
             Consumer consumer = _consumerRepository
-                .GetById("4b47286f-a4f6-41fd-aec3-cc547d135052");
+                .GetById("07b6ec1c-f9d6-4f3a-9525-749eb952edb2");
             return View(consumer);
         }
 

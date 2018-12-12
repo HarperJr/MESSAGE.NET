@@ -1,6 +1,6 @@
 ﻿using Database;
+using Messanger.Database.Dao.Base;
 using Messanger.Database.Models;
-using Messanger.DataBase.Dao.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ namespace Messanger.Database.Dao {
         public ICollection<Consumer> GetConsumersMatchNameWithOffsetAndLimit(string name, int offset, int limit) {
             return _localDbContext
                 .Consumers.Where(consumer => consumer.Name.Contains(name))
- 
+                .Take(limit)
                 .ToList();
         }
 

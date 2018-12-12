@@ -8,8 +8,8 @@ using System.Web;
 namespace Messanger.Database.Models {
     public class Dialog {
 
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Key]
+        public string Id { get; set; }
 
         public Consumer Owner { get; set; }
 
@@ -18,6 +18,6 @@ namespace Messanger.Database.Models {
         [MaxLength(32)]
         public string Title { get; set; }
 
-        public DateTime InitDate { get; set; }
+        public long InitTime { get; set; }
     }
 }

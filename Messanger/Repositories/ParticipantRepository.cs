@@ -38,5 +38,9 @@ namespace Messanger.Repositories {
         public void Insert(Participant model) {
             _participantDao.Insert(_mapper.Map<DialogParticipant>(model));
         }
+
+        public Participant GetParticipantById(string participantId) {
+            return _mapper.Map<Participant>(_participantDao.GetParticipantById(participantId));
+        }
     }
 }

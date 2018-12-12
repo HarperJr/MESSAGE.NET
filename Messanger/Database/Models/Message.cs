@@ -15,7 +15,7 @@ namespace Messanger.Database.Models {
 
         public Consumer Sender { get; set; }
 
-        public DateTime Time { get; set; }
+        public long Time { get; set; }
 
         [MaxLength(4096)]
         public string Content { get; set; }

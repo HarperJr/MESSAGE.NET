@@ -11,6 +11,8 @@ namespace Messanger.Data.Models {
 
         public string Status { get; set; }
 
-        public string ContactId { get; set; }
+        public string InitialConsumerId { get; set; }
+
+        public string RelatedConsumerId { get; set; }
     }
 }

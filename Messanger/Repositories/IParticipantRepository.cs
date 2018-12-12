@@ -9,6 +9,8 @@ using System.Web;
 namespace Messanger.Repositories {
     public interface IParticipantRepository : IRepository<Participant, int> {
 
+        Participant GetParticipantById(string participantId);
+
         ICollection<Participant> GetParticipantsByDialogId(int dialogId);
     }
 }

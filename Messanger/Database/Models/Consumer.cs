@@ -18,6 +18,6 @@ namespace Messanger.Database.Models {
         [MaxLength(16)]
         public string PhoneNumber { get; set; }
         
-        public DateTime LastTimeOnline { get; set; }
+        public long LastTimeOnline { get; set; }
     }
 }
