@@ -21,6 +21,7 @@ namespace Messanger.Http {
     public class MessangerHandler : IHttpHandler {
 
         private readonly ConcurrentDictionary<string, WebSocket> _sockets = new ConcurrentDictionary<string, WebSocket>();
+
         private readonly IMessageRepository _messageRepository;
         private readonly IDialogRepository _dialogRepository;
         private readonly IParticipantRepository _participantRepository;
@@ -45,11 +46,10 @@ namespace Messanger.Http {
             JObject request = await GetJsonRequestAsync(socket);
             string consumerGuid = request.GetValue("consumerGuid").Value<string>();
 
-            if (!_sockets.ContainsKey(consumerGuid)) {
-                _sockets.TryAdd(consumerGuid, socket);
-            } else {
+            if (_sockets.ContainsKey(consumerGuid)) {
                 _sockets.TryRemove(consumerGuid, out WebSocket removedSocket);
             }
+            _sockets.TryAdd(consumerGuid, socket);
 
             while (true) {
                 if (socket.State.Equals(WebSocketState.Open)) {

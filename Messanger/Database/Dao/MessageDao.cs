@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Messanger.Database.Models;
 
 namespace Messanger.Database.Dao {
     public class MessageDao : IDao<Message, string> {
@@ -19,7 +18,6 @@ namespace Messanger.Database.Dao {
             return _localDbContext
                 .Messages.Where(message => message.Dialog.Id.Equals(dialogId))
                 .OrderBy(message => message.Time)
-                .Take(limit)
                 .ToList();
         }
 

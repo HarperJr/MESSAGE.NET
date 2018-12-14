@@ -35,7 +35,7 @@ namespace Messanger.Controllers
             Consumer consumer = _consumerRepository
                 .GetById(request.Consumer);
             if (consumer == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("SignIn", "Auth");
             }
             return View(consumer);
         }

@@ -114,10 +114,8 @@
 
             <div style="
                  margin: 16px">
-                <form>
-                    <input id="messageBox" type="text" style="position:relative" />
-                    <button type="button" class="btn" name="sendMessage" onclick="onSendMessageClicked()">Send</button>
-                </form>
+                  <input id="messageBox" type="text" style="position:relative" />
+                  <button type="button" class="btn" name="sendMessage" onclick="onSendMessageClicked()">Send</button>
             </div>
 
         </div>
@@ -144,6 +142,7 @@
     var socket = new WebSocket("ws://localhost/Messanger/Http/MessangerHandler.ashx");
 
     socket.onopen = function (e) {
+        alert("socket opened");
         socket.send(JSON.stringify({
             "consumerGuid": messanger.identifier
         }));

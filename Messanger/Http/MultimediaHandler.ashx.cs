@@ -16,7 +16,7 @@ namespace Messanger.Http {
 
         public bool IsReusable {
             get {
-                return false;
+                return true;
             }
         }
     }
