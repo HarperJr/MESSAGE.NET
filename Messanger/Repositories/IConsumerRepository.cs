@@ -9,5 +9,7 @@ namespace Messanger.Repositories {
     public interface IConsumerRepository : IRepository<Consumer, string> {
 
         ICollection<Consumer> GetMatchNameWithOffsetAndLimit(string name, int offset, int limit);
+
+        Consumer FindByName(string name);
     }
 }

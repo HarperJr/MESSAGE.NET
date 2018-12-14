@@ -7,5 +7,7 @@ using System.Web;
 
 namespace Messanger.Repositories {
     public interface IMessageRepository : IRepository<Message, string> {
+
+        ICollection<Message> GetMessagesByDialogIdWithOffsetAndLimit(string dialogId, int offset, int limit);
     }
 }

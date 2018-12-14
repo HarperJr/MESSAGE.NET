@@ -20,17 +20,23 @@ namespace Messanger.Controllers
         private readonly LocalDbContext _localDbContext;
         private readonly IConsumerRepository _consumerRepository;
         private readonly IDialogRepository _dialogRepository;
+        private readonly IMessageRepository _messageRepository;
 
         public HomeController() {
             _localDbContext = new LocalDbContext();
             _consumerRepository = new ConsumerRepository(_localDbContext);
             _dialogRepository = new DialogRepository(_localDbContext);
+            _messageRepository = new MessageRepository(_localDbContext);
         }
 
         // GET: Home
-        public ActionResult Index() {
+        [HttpGet]
+        public ActionResult Index(IndexRequest request) {
             Consumer consumer = _consumerRepository
-                .GetById("07b6ec1c-f9d6-4f3a-9525-749eb952edb2");
+                .GetById(request.Consumer);
+            if (consumer == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View(consumer);
         }
 
@@ -41,6 +47,12 @@ namespace Messanger.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             return PartialView(dialogs);
+        }
+
+        public ActionResult Messages(MessagesRequest request) {
+            ICollection<Message> messages = _messageRepository
+                .GetMessagesByDialogIdWithOffsetAndLimit(request.DialogId, request.Offset, request.Limit);
+            return PartialView(messages);
         }
 
         public ActionResult Consumers(ConsumersRequest request) {

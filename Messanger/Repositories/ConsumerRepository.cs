@@ -32,6 +32,10 @@ namespace Messanger.Repositories {
                 );
         }
 
+        public Consumer FindByName(string name) {
+            return _mapper.Map<Consumer>(_consumerDao.FindByName(name));
+        }
+
         public void Insert(Consumer model) {
             _consumerDao.Insert(_mapper.Map<Database.Models.Consumer>(model));
         }

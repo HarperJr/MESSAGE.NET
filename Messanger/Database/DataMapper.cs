@@ -12,26 +12,18 @@ namespace Database {
                 #region Model to Contract
 
                 cfg.CreateMap<Consumer, Messanger.Data.Models.Consumer>()
-                .ForMember(m => m.LastTimeOnline, opt => opt.MapFrom(c => new DateTime(c.LastTimeOnline)))
-                .ForMember(m => m.AvatarId, opt => opt.MapFrom(c => c.Avatar.Id));
+                .ForMember(m => m.LastTimeOnline, opt => opt.MapFrom(c => new DateTime(c.LastTimeOnline)));
 
                 cfg.CreateMap<Contact, Messanger.Data.Models.Contact>()
-                .ForMember(m => m.InitTime, opt => opt.MapFrom(c => new DateTime(c.InitTime)))
-                .ForMember(m => m.RelatedConsumerId, opt => opt.MapFrom(c => c.RelatedConsumer.Id));
+                .ForMember(m => m.InitTime, opt => opt.MapFrom(c => new DateTime(c.InitTime)));
 
                 cfg.CreateMap<Dialog, Messanger.Data.Models.Dialog>()
-                .ForMember(m => m.InitTime, opt => opt.MapFrom(c => new DateTime(c.InitTime)))
-                .ForMember(m => m.OwnerId, opt => opt.MapFrom(c => c.Owner.Id));
+                .ForMember(m => m.InitTime, opt => opt.MapFrom(c => new DateTime(c.InitTime)));
 
-                cfg.CreateMap<DialogParticipant, Messanger.Data.Models.Participant>()
-                .ForMember(m => m.DialogId, opt => opt.MapFrom(c => c.Dialog.Id))
-                .ForMember(m => m.ParticipantId, opt => opt.MapFrom(c => c.Participant.Id))
-                .ForMember(m => m.InvitorId, opt => opt.MapFrom(c => c.Invitor.Id));
+                cfg.CreateMap<DialogParticipant, Messanger.Data.Models.Participant>();
 
                 cfg.CreateMap<Message, Messanger.Data.Models.Message>()
-                .ForMember(m => m.Time, opt => opt.MapFrom(c => new DateTime(c.Time)))
-                .ForMember(m => m.DialogId, opt => opt.MapFrom(c => c.Dialog.Id))
-                .ForMember(m => m.SenderId, opt => opt.MapFrom(c => c.Sender.Id));
+                .ForMember(m => m.Time, opt => opt.MapFrom(c => new DateTime(c.Time)));
 
                 cfg.CreateMap<Multimedia, Messanger.Data.Models.Multimedia>();
 

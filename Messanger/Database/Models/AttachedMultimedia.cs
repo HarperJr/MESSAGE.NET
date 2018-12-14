@@ -11,7 +11,13 @@ namespace Messanger.Database.Models {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [ForeignKey("Message")]
+        public string MessageId { get; set; }
+
         public Message Message { get; set; }
+
+        [ForeignKey("Multimedia")]
+        public string MultimediaId { get; set; }
 
         public Multimedia Multimedia { get; set; }
 

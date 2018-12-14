@@ -20,7 +20,7 @@ namespace Messanger.Database.Dao {
                 .First();
         }
 
-        public ICollection<DialogParticipant> GetParticipantsByDialogId(int dialogId) {
+        public ICollection<DialogParticipant> GetParticipantsByDialogId(string dialogId) {
             return _localDbContext
                 .DialogParticipants.Where(participant => participant.Dialog.Id.Equals(dialogId))
                 .ToList();

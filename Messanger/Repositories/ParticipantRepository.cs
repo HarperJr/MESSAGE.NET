@@ -21,7 +21,7 @@ namespace Messanger.Repositories {
             _participantDao = new ParticipantDao(localDbContext);
         }
 
-        public ICollection<Participant> GetParticipantsByDialogId(int dialogId) {
+        public ICollection<Participant> GetParticipantsByDialogId(string dialogId) {
             return _mapper.Map<ICollection<Participant>>(
                 _participantDao.GetParticipantsByDialogId(dialogId));
         }

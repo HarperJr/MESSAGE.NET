@@ -11,7 +11,13 @@ namespace Messanger.Database.Models {
         [Key]
         public string Id { get; set; }
 
+        [ForeignKey("Owner")]
+        public string OwnerId { get; set; }
+
         public Consumer Owner { get; set; }
+
+        [ForeignKey("Shortcut")]
+        public string ShortcutId { get; set; }
 
         public Multimedia Shortcut { get; set; }
 

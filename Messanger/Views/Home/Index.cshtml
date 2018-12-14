@@ -1,22 +1,31 @@
 ﻿@model Messanger.Data.Models.Consumer
 
 <style>
-    ul li {
+    ul {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .ul-li-block {
         display: block;
         text-decoration: none;
         padding: 15px;
     }
+    ul li:hover {
+        background: #4cff00;
+    }
 
-        ul li:hover {
-            background: #b6ff00;
-        }
+    .message {
+        margin: 12px;
+        padding: 8px;
+    }
 </style>
 
 <div class="modal fade" id="consumersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Other users</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -47,7 +56,7 @@
     margin:16px;
     background:#808080">
             <ul>
-                <li>
+                <li class="ul-li-block">
                     <div>
                         @Model.Name
                     </div>
@@ -75,19 +84,26 @@
             <div id="contentHeader" style="
     position:inherit;
     width:inherit;
-    height:64px;">
+    flex-basis: 64px;">
                 <div style="
     float:right;
     justify-content:center">
 
                     <div>
                         <form>
-                            <input id="comsumersSearch" type="search" placeholder="Search others..." name="name"/>
+                            <input id="consumersSearch" type="search" placeholder="Search others..." name="name" />
                             <button type="button" onclick="onSearchButtonClicked()" class="btn">Search</button>
                         </form>
                     </div>
 
                 </div>
+            </div>
+
+            <div id="messagesContainer" style="
+    position: inherit;
+    width: inherit;
+    flex: 1;">
+
             </div>
 
         </div>
@@ -111,14 +127,51 @@
 </div>
 
 <script>
+    var requestType = {
+        sendMessage: "send_message",
+        invite: "invite"
+    }
     var messanger = {
-        identifier: "4b47286f-a4f6-41fd-aec3-cc547d135052",
+        identifier: "@Model.Id",
+        selectedDialog: null,
         dialogsLoaded: 0,
         dialogsPortion: 10,
         messagesLoaded: 0,
         messagesPortion: 30,
         consumersLoaded: 0,
         consumersPortion: 30
+    }
+    var socket = new WebSocket("ws://localhost/Messanger/Http/MessangerHandler.ashx");
+
+    socket.onopen = function (e) {
+        socket.send(JSON.stringify({
+            "consumerGuid": messanger.identifier
+        }));
+    }
+
+    socket.onmessage = function (e) {
+        var jsonData = JSON.parse(e.data);
+        switch (jsonData.requestType) {
+            case requestType.sendMessage: {
+                var message = jsonData.message;
+                if (messanger.selectedDialog == message.dialogId) {
+                    $("#messagesRecycler")
+                        .append(
+                        $("<div class='card message' style='display: block;'></div>")
+                                .text(message.content)
+                    );
+                }
+                break;
+            }
+            case requestType.invite: {
+
+                break;
+            }
+        }
+    }
+
+    socket.onerror = function (e) {
+        alert(e.data);
     }
 
     $(function () {
@@ -141,6 +194,23 @@
         });
     }
 
+    function loadMessagesAsync(uid, dialog, from, portion) {
+        $.ajax({
+            url: "@Url.Action("Messages", "Home")",
+            method: "post",
+            data: {
+                uid: uid,
+                dialogId: dialog,
+                offset: from,
+                limit: portion
+            },
+            error: function () { },
+            success: function (view) {
+                $("#messagesContainer").html(view);
+            }
+        });
+    }
+
     function searchConsumersAsync(name, from, portion) {
          $.ajax({
             url: "@Url.Action("Consumers", "Home")",
@@ -151,49 +221,62 @@
                 limit: portion
             },
              success: function (view) {
-                 $("#consumersContainer").html(view);
-                 $("#consumersModal").modal('show')
-             },
-             error: function () {
-                 alert("Unable to find others with tag " + name);
-             }
+                $("#consumersContainer").html(view);
+                $("#consumersModal").modal("show");
+            },
+            error: function () {
+                alert("Unable to find others with tag " + name);
+            }
         });
     }
 
     function sendMessageAsync(message) {
-        $.ajax({
+        socket.send(JSON.stringify({
+            "requestType": requestType.sendMessage,
+            "message": {
+                "dialogId": messanger.selectedDialog,
+                "content": message
+            }
+        }));
+    }
 
-        });
+    function inviteConsumerAsync(consumer) {
+        socket.send(JSON.stringify({
+            "requestType": requestType.invite,
+            "receiverId": consumer
+        }));
     }
 
     function onSendMessageClicked() {
-        alert("onSendMessageClicked");
-
+        var message = $("#messageBox").val();
+        //Validaor required
+        if (messanger.selectedDialog == null ||
+            message == null ||
+            message === "") {
+            return;
+        }
+        sendMessageAsync(message);
     }
 
-    function onDialogClicked(dialog) {
-        alert("onDialogClicked " + dialog);
-
-    }
-
-    function onConsumerClicked(consumer) {
-        alert("onConsumerClicked " + consumer);
-
-    }
-
-    function onSearchButtonClicked() {
-        searchConsumersAsync($("#comsumersSearch").val(),
-            messanger.consumersLoaded,
-            messanger.consumersPortion);
-    }
-
-    function connect() {
-        var socket = new WebSocket("ws://localhost/Messanger");
-        socket.onclose = function (event) {
-
+    function onDialogClicked(dialog) {        
+        messanger.selectedDialog = dialog;
+        if (dialog != null) {
+            loadMessagesAsync(messanger.identifier,
+                dialog,
+                messanger.messagesLoaded,
+                messanger.messagesPortion);
         }
     }
 
+    function onInviteButtonClicked(consumer) {
+        inviteConsumerAsync(consumer);  
+    }
+
+    function onSearchButtonClicked() {
+        searchConsumersAsync($("#consumersSearch").val(),
+            messanger.consumersLoaded,
+            messanger.consumersPortion);
+    }
 </script>
 
 

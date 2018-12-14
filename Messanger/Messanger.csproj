@@ -244,6 +244,8 @@
     <Compile Include="Http\Models\ConsumersRequest.cs" />
     <Compile Include="Http\Models\DialogsRequest.cs" />
     <Compile Include="Http\Models\IdentificationRequest.cs" />
+    <Compile Include="Http\Models\IndexRequest.cs" />
+    <Compile Include="Http\Models\MessagesRequest.cs" />
     <Compile Include="Http\MultimediaHandler.ashx.cs">
       <DependentUpon>MultimediaHandler.ashx</DependentUpon>
     </Compile>
@@ -252,9 +254,9 @@
     <Compile Include="Data\Models\Contact.cs" />
     <Compile Include="Data\Models\Dialog.cs" />
     <Compile Include="Data\Models\Message.cs" />
-    <Compile Include="Migrations\201812122037293_Init.cs" />
-    <Compile Include="Migrations\201812122037293_Init.Designer.cs">
-      <DependentUpon>201812122037293_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201812131802342_Init.cs" />
+    <Compile Include="Migrations\201812131802342_Init.Designer.cs">
+      <DependentUpon>201812131802342_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -296,6 +298,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\Messages.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -310,15 +313,15 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812122037293_Init.resx">
-      <DependentUpon>201812122037293_Init.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812131802342_Init.resx">
+      <DependentUpon>201812131802342_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

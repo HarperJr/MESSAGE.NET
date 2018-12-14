@@ -16,7 +16,13 @@ namespace Messanger.Database.Models {
         [MaxLength(32)]
         public string Status { get; set; }
 
+        [ForeignKey("InitialConsumer")]
+        public string InitialConsumerId { get; set; }
+
         public Consumer InitialConsumer { get; set; }
+
+        [ForeignKey("RelatedConsumer")]
+        public string RelatedConsumerId { get; set; }
 
         public Consumer RelatedConsumer { get; set; }
     }

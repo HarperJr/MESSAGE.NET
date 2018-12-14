@@ -4,7 +4,12 @@
     <ul>
         @{
             foreach (var consumer in Model) {
-                <li onclick="onConsumerClicked(@consumer.Id)">@consumer.Name</li>
+                <li class="ul-li-block">
+                    <div>
+                        <p class="text-monospace text-center">@consumer.Name</p>
+                        <button class="btn" type="button" name="sendInvition" onclick="onInviteButtonClicked('@consumer.Id')">Add</button>
+                    </div>
+                </li>
             }
         }
     </ul>

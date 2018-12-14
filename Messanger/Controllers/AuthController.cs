@@ -42,11 +42,11 @@ namespace Messanger.Controllers
 
         public ActionResult Authorize(AuthorizationRequest request) {
             Consumer consumer = _consumerRepository
-                .GetById("");
+                .FindByName(request.Name);
             if (consumer == null) {
                 return RedirectToAction("SignIn", "Auth");
             } else {
-                return RedirectToAction("Index", "Home", consumer);
+                return RedirectToAction("Index", "Home", new IndexRequest { Consumer = consumer.Id });
             }
         }
     }

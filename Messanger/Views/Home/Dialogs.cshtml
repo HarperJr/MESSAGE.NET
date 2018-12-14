@@ -1,9 +1,9 @@
 ﻿@model ICollection<Messanger.Data.Models.Dialog>
 
-<ul>
+<ul class="ul-block">
     @{  
         foreach (var dialog in Model) {
-            <li onclick="onDialogClicked(@dialog.Id)">@dialog.Title</li>
+            <li class="ul-li-block" onclick="onDialogClicked('@dialog.Id')">@dialog.Title</li>
         }
     }
 </ul>

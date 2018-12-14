@@ -22,6 +22,12 @@ namespace Messanger.Database.Dao {
                 .ToList();
         }
 
+        public Consumer FindByName(string name) {
+            return _localDbContext
+                .Consumers.Where(consumer => consumer.Name.Equals(name))
+                .First();
+        }
+
         public void Insert(Consumer entity) {
             _localDbContext
                 .Consumers.Add(entity);

@@ -15,9 +15,18 @@ namespace Messanger.Database.Dao {
             _localDbContext = localDbContext;
         }
 
+        public ICollection<Message> GetMessagesByDialogIdWithOffsetAndLimit(string dialogId, int offset, int limit) {
+            return _localDbContext
+                .Messages.Where(message => message.Dialog.Id.Equals(dialogId))
+                .OrderBy(message => message.Time)
+                .Take(limit)
+                .ToList();
+        }
+
         public void Delete(Message entity) {
             _localDbContext
                 .Messages.Remove(entity);
+            _localDbContext.SaveChanges();
         }
 
         public Message GetById(string id) {
@@ -28,6 +37,7 @@ namespace Messanger.Database.Dao {
         public void Insert(Message entity) {
             _localDbContext
                 .Messages.Add(entity);
+            _localDbContext.SaveChanges();
         }
     }
 }

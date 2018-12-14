@@ -1,0 +1,16 @@
+﻿@model ICollection<Messanger.Data.Models.Message>
+
+<div id="messagesRecycler" class="pre-scrollable" style="
+    position: inherit;
+    width: inherit; 
+    overflow-y: scroll;
+    flex-direction: column; ">
+        @{
+            foreach (var message in Model) {
+                <div class="card message" style="
+        display: block; ">
+                    <p>@message.Content</p>
+                </div>
+            }
+        }
+</div>

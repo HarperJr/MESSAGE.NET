@@ -11,7 +11,13 @@ namespace Messanger.Database.Models {
         [Key]
         public string Id { get; set; }
 
+        [ForeignKey("Dialog")]
+        public string DialogId { get; set; }
+
         public Dialog Dialog { get; set; }
+
+        [ForeignKey("Sender")]
+        public string SenderId { get; set; }
 
         public Consumer Sender { get; set; }
 
