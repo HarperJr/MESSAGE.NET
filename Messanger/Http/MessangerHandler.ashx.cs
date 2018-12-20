@@ -20,7 +20,7 @@ namespace Messanger.Http {
     /// </summary>
     public class MessangerHandler : IHttpHandler {
 
-        private readonly ConcurrentDictionary<string, WebSocket> _sockets = new ConcurrentDictionary<string, WebSocket>();
+        private static Dictionary<string, WebSocket> _sockets = new Dictionary<string, WebSocket>();
 
         private readonly IMessageRepository _messageRepository;
         private readonly IDialogRepository _dialogRepository;
@@ -28,10 +28,12 @@ namespace Messanger.Http {
         private readonly IContactRepository _contactRepository;
 
         public MessangerHandler() {
-            _messageRepository = new MessageRepository(new LocalDbContext());
-            _dialogRepository = new DialogRepository(new LocalDbContext());
-            _participantRepository = new ParticipantRepository(new LocalDbContext());
-            _contactRepository = new ContactRepository(new LocalDbContext());
+            LocalDbContext localDbContext = new LocalDbContext();
+            // Hardcoded injection
+            _messageRepository = new MessageRepository(localDbContext);
+            _dialogRepository = new DialogRepository(localDbContext);
+            _participantRepository = new ParticipantRepository(localDbContext);
+            _contactRepository = new ContactRepository(localDbContext);
         }
 
         public void ProcessRequest(HttpContext context) {
@@ -42,18 +44,16 @@ namespace Messanger.Http {
 
         private async Task HandleWebSocket(AspNetWebSocketContext context) {
             var socket = context.WebSocket;
-
+   
             JObject request = await GetJsonRequestAsync(socket);
             string consumerGuid = request.GetValue("consumerGuid").Value<string>();
 
-            if (_sockets.ContainsKey(consumerGuid)) {
-                _sockets.TryRemove(consumerGuid, out WebSocket removedSocket);
-            }
-            _sockets.TryAdd(consumerGuid, socket);
+            _sockets.Add(consumerGuid, socket);
 
             while (true) {
                 if (socket.State.Equals(WebSocketState.Open)) {
                     request = await GetJsonRequestAsync(socket);
+                    request.Add("senderId", consumerGuid);
 
                     Enum.TryParse(request.GetValue("requestType")
                         .Value<string>(), out WebSocketRequestType requestType);
@@ -82,11 +82,22 @@ namespace Messanger.Http {
                                     request);
                                 break;
                             }
+                        case WebSocketRequestType.DELETE_CONTACT: {
+                                await HandleContactDeleting(
+                                    consumerGuid,
+                                    request);
+                                break;
+                            }
+                        case WebSocketRequestType.CREATE_DIALOG: {
+                                await HandleDialogCreating(
+                                    consumerGuid,
+                                    request);
+                                break;
+                            }
                     }
                 } else {
-                    _sockets.TryRemove(consumerGuid, out WebSocket removedSocket);
-                    if (removedSocket != null) {
-                        await removedSocket.CloseAsync(
+                    if (_sockets.Remove(consumerGuid)) {
+                        await socket.CloseAsync(
                             WebSocketCloseStatus.NormalClosure, "closing", CancellationToken.None);
                     }
                     break;
@@ -108,10 +119,12 @@ namespace Messanger.Http {
             }
         }
 
-        private async Task SendJsonResponseAsync(WebSocket socket, JObject response) {
+        private async Task SendJsonResponseAsync(ICollection<WebSocket> sockets, JObject response) {
             ArraySegment<byte> buffer = new ArraySegment<byte>(
                 Encoding.UTF8.GetBytes(response.ToString()));
-            await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            foreach (var socket in sockets) {
+                await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
         }
 
         private async Task HandleMessageSending(string guid, JObject jsonRequest) {
@@ -129,36 +142,81 @@ namespace Messanger.Http {
                 Viewed = false
             });
 
-            ICollection<Participant> participants = _participantRepository.GetParticipantsByDialogId(dialogId);
+            ICollection<Participant> participants = _participantRepository
+                .GetParticipantsByDialogId(dialogId);
             foreach (Participant participant in participants) {
-                WebSocket receiverSocket = _sockets[participant.ParticipantId];
-                await SendJsonResponseAsync(receiverSocket, jsonRequest);
+                await SendJsonResponseAsync(getSockets(participant.ParticipantId), jsonRequest);
             }
         }
 
         private async Task HandleInviting(string guid, JObject jsonRequest) {
-            string receiver = jsonRequest.GetValue("receiverId").Value<string>();
-            await SendJsonResponseAsync(_sockets[receiver], jsonRequest);
+            string receiverId = jsonRequest.GetValue("receiverId").Value<string>();
+            string dialogId = jsonRequest.GetValue("dialogId").Value<string>();
+            if (dialogId != null) {
+                _participantRepository.Insert(new Participant {
+                    DialogId = dialogId,
+                    InvitorId = guid,
+                    ParticipantId = receiverId
+                });
+            }
+            await SendJsonResponseAsync(getSockets(receiverId), jsonRequest);
         }
 
         private async Task HandleNotifying(string guid, JObject jsonRequest) {
+           
+        }
+
+        private async Task HandleContactDeleting(string guid, JObject jsonRequest) {
 
         }
-   
+
+        private async Task HandleDialogCreating(string guid, JObject jsonRequest) {
+            string receiverId = jsonRequest.GetValue("receiverId").Value<string>();
+            if (receiverId != null) {
+                var dialogId = Guid.NewGuid().ToString();
+                _dialogRepository.Insert(new Dialog {
+                    Id = dialogId,
+                    InitTime = DateTime.UtcNow,
+                    OwnerId = guid
+                });
+                jsonRequest.Add("dialogId", dialogId);
+                await SendJsonResponseAsync(getSockets(guid), jsonRequest);
+            }
+        }
+
         private async Task HandleContactAdding(string guid, JObject jsonRequest) {
             string receiver = jsonRequest.GetValue("receiverId").Value<string>();
+            string status = jsonRequest.GetValue("status").Value<string>();
+            switch (status) {
+                case "request": {
+                        Contact contact = _contactRepository
+                            .GetByRelatedConsumersId(guid, receiver);
+                        if (contact == null) {
+                            _contactRepository.Insert(new Contact {
+                                InitialConsumerId = guid,
+                                RelatedConsumerId = receiver,
+                                InitTime = DateTime.UtcNow,
+                                Status = status
+                            });
+                        }
+                        break;
+                    }
+                case "response": {
+                        Contact contact = _contactRepository
+                            .GetByRelatedConsumersId(receiver, guid);
+                        if (contact != null) {
+                            _contactRepository.UpdateStatus(contact, status);
+                        }
+                        break;
+                    }
+            }
+            await SendJsonResponseAsync(getSockets(receiver), jsonRequest);
+        }
 
-            _contactRepository.Insert(new Contact {
-                InitTime = DateTime.UtcNow,
-                InitialConsumerId = guid,
-                RelatedConsumerId = receiver,
-                Status = "Unaccepted"
-            });
-
-            JObject response = new JObject {
-                { "senderId", guid },
-            };
-            await SendJsonResponseAsync(_sockets[receiver], response);
+        private ICollection<WebSocket> getSockets(string guid) {
+            return _sockets.Where(socket => socket.Key.Equals(guid))
+                .Select(socket => socket.Value)
+                .ToList();
         }
 
         public bool IsReusable {

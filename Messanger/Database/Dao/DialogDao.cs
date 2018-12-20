@@ -20,8 +20,10 @@ namespace Messanger.Database.Dao {
                 .DialogParticipants
                 .Where(participant => participant.Participant.Id.Equals(consumerId))
                 .Select(participant => participant.Dialog)
+                .Union(_localDbContext.Dialogs
+                .Where(dialog => dialog.Owner.Id.Equals(consumerId)))
                 .Take(limit)
-                .ToList(); 
+                .ToList();
         }
 
         public void Delete(Dialog entity) {

@@ -5,6 +5,11 @@ using System.Web;
 
 namespace Messanger.Http.DataTypes {
     public enum WebSocketRequestType {
-        SEND_MESSAGE, ADD_CONTACT, NOTIFY, INVITE
+        SEND_MESSAGE,
+        ADD_CONTACT,
+        DELETE_CONTACT,
+        NOTIFY,
+        INVITE,
+        CREATE_DIALOG
     }
 }

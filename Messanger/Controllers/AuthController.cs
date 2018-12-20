@@ -1,22 +1,28 @@
 ﻿using Messanger.Data.Models;
 using Messanger.Database;
+using Messanger.DatabaseAuth.Managers;
 using Messanger.Http.Models;
 using Messanger.Repositories;
 using System;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity.Owin;
+using System.Web;
+using Messanger.DatabaseAuth.Models;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
 
 namespace Messanger.Controllers
 {
     public class AuthController : Controller {
 
-        private readonly AuthDbContext _authDbContext;
-        private readonly LocalDbContext _localDbContext;
+        private AuthUserManager UserManager => HttpContext.GetOwinContext().GetUserManager<AuthUserManager>();
+        private IAuthenticationManager AuthManager => HttpContext.GetOwinContext().Authentication;
         private readonly IConsumerRepository _consumerRepository;
 
         public AuthController() {
-            _authDbContext = new AuthDbContext();
-            _localDbContext = new LocalDbContext();
-            _consumerRepository = new ConsumerRepository(_localDbContext);
+            _consumerRepository = new ConsumerRepository(new LocalDbContext());
         }
 
         public ActionResult SignIn() {
@@ -28,26 +34,44 @@ namespace Messanger.Controllers
             return View();
         }
 
-        public ActionResult IdentifyUser(IdentificationRequest request) {
-            //Here we identify new identity user
-            //After we get new guid and insert him in Consumers
-            Guid guid = new Guid();
-            _consumerRepository.Insert(new Consumer {
-                Id = guid.ToString(),
-                Name = request.Name,
-                PhoneNumber = request.PhoneNumber,
-            });
-            return RedirectToAction("SignIn", "Auth");
+        public async Task<ActionResult> Identify(IdentificationRequest request) {
+            if (ModelState.IsValid) {
+                var authUser = new AuthUser {
+                    UserName = request.Name,
+                    PhoneNumber = request.PhoneNumber,
+                };
+                IdentityResult result = await UserManager.CreateAsync(authUser, request.Password);
+                if (result.Succeeded) {
+                    var identifiedUser = await UserManager.FindAsync(request.Name, request.Password);
+                    _consumerRepository.Insert(new Consumer {
+                        Id = identifiedUser.Id,
+                        Name = request.Name,
+                        PhoneNumber = request.PhoneNumber,
+                    });
+                } else {
+                    foreach (var error in result.Errors) {
+                        ModelState.AddModelError("identificationError", error);
+                    }
+                }
+            }
+            return RedirectToAction("SignIn", "Auth", request);
         }
 
-        public ActionResult Authorize(AuthorizationRequest request) {
-            Consumer consumer = _consumerRepository
-                .FindByName(request.Name);
-            if (consumer == null) {
-                return RedirectToAction("SignIn", "Auth");
+        public async Task<ActionResult> Authorize(AuthorizationRequest request) {
+            var authUser = await UserManager.FindAsync(request.Name, request.Password);
+            if (authUser == null) {
+                ModelState.AddModelError("authorizationError", "Invalid name or password");
             } else {
+                ClaimsIdentity claimsIdentity = await UserManager.CreateIdentityAsync(authUser,
+                    DefaultAuthenticationTypes.ApplicationCookie);
+                AuthManager.SignOut();
+                AuthManager.SignIn(new AuthenticationProperties {
+                    IsPersistent = false
+                }, claimsIdentity);
+                var consumer = _consumerRepository.GetById(authUser.Id);
                 return RedirectToAction("Index", "Home", new IndexRequest { Consumer = consumer.Id });
             }
+            return RedirectToAction("SignIn", "Auth", request);
         }
     }
 }

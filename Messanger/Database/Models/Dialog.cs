@@ -16,14 +16,6 @@ namespace Messanger.Database.Models {
 
         public Consumer Owner { get; set; }
 
-        [ForeignKey("Shortcut")]
-        public string ShortcutId { get; set; }
-
-        public Multimedia Shortcut { get; set; }
-
-        [MaxLength(32)]
-        public string Title { get; set; }
-
         public long InitTime { get; set; }
     }
 }

@@ -10,10 +10,6 @@ namespace Messanger.Data.Models {
 
         public string OwnerId { get; set; }
 
-        public string Shortcut { get; set; }
-
-        public string Title { get; set; }
-
         public DateTime InitTime { get; set; }
     }
 }

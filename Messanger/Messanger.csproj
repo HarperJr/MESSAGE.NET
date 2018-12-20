@@ -77,8 +77,11 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.3.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
@@ -200,6 +203,7 @@
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="Scripts\material-components-min-web.js" />
+    <Content Include="Scripts\messanger\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -216,11 +220,15 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Database\AuthDbContext.cs" />
+    <Compile Include="DatabaseAuth\AuthDbContext.cs" />
+    <Compile Include="DatabaseAuth\Managers\AuthUserManager.cs" />
+    <Compile Include="DatabaseAuth\Models\AuthUser.cs" />
     <Compile Include="Database\Dao\Base\IDao.cs" />
     <Compile Include="Database\Dao\ConsumerDao.cs" />
+    <Compile Include="Database\Dao\ContactDao.cs" />
     <Compile Include="Database\Dao\DialogDao.cs" />
     <Compile Include="Database\Dao\MessageDao.cs" />
+    <Compile Include="Database\Dao\MultimediaDao.cs" />
     <Compile Include="Database\Dao\ParticipantDao.cs" />
     <Compile Include="Database\DataMapper.cs" />
     <Compile Include="Database\LocalDbContext.cs" />
@@ -233,6 +241,8 @@
     <Compile Include="Database\Models\Multimedia.cs" />
     <Compile Include="Data\Models\Multimedia.cs" />
     <Compile Include="Data\Models\Participant.cs" />
+    <Compile Include="Data\ViewModels\ViewModelDialog.cs" />
+    <Compile Include="Data\ViewModels\ViewModelMessage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,6 +251,7 @@
       <DependentUpon>MessangerHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Http\Models\AuthorizationRequest.cs" />
+    <Compile Include="Http\Models\ConsumerInfoRequest.cs" />
     <Compile Include="Http\Models\ConsumersRequest.cs" />
     <Compile Include="Http\Models\DialogsRequest.cs" />
     <Compile Include="Http\Models\IdentificationRequest.cs" />
@@ -254,14 +265,12 @@
     <Compile Include="Data\Models\Contact.cs" />
     <Compile Include="Data\Models\Dialog.cs" />
     <Compile Include="Data\Models\Message.cs" />
-    <Compile Include="Migrations\201812131802342_Init.cs" />
-    <Compile Include="Migrations\201812131802342_Init.Designer.cs">
-      <DependentUpon>201812131802342_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201812201622074_Init.cs" />
+    <Compile Include="Migrations\201812201622074_Init.Designer.cs">
+      <DependentUpon>201812201622074_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\AuthorizationServerProvider.cs" />
-    <Compile Include="Providers\MessageProvider.cs" />
     <Compile Include="Repositories\Base\IRepository.cs" />
     <Compile Include="Repositories\ConsumerRepository.cs" />
     <Compile Include="Repositories\ContactRepository.cs" />
@@ -270,8 +279,10 @@
     <Compile Include="Repositories\IContactRepository.cs" />
     <Compile Include="Repositories\IDialogRepository.cs" />
     <Compile Include="Repositories\IMessageRepository.cs" />
+    <Compile Include="Repositories\IMultimediaRepository.cs" />
     <Compile Include="Repositories\IParticipantRepository.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
+    <Compile Include="Repositories\MultimediaRepository.cs" />
     <Compile Include="Repositories\ParticipantRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +310,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Messages.cshtml" />
+    <Content Include="Views\Home\ConsumerInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -308,6 +320,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="multimedia\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -319,8 +332,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812131802342_Init.resx">
-      <DependentUpon>201812131802342_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812201622074_Init.resx">
+      <DependentUpon>201812201622074_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

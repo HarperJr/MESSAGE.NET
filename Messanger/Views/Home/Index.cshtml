@@ -37,6 +37,22 @@
     </div>
 </div>
 
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="notificationContainer" class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <div style="
     width: 860px;
     height: 500px;
@@ -111,11 +127,18 @@
         <div class="mdc-card" style="
     margin-top: 20px;
     flex: 1;">
-
             <div style="
-                 margin: 16px">
-                  <input id="messageBox" type="text" style="position:relative" />
-                  <button type="button" class="btn" name="sendMessage" onclick="onSendMessageClicked()">Send</button>
+                 margin: 16px;
+                 width: inherit">
+                <div style="
+    margin-right: 16px;
+    flex:1;">
+                    <input id="messageBox" type="text" style="width: inherit;" />
+                </div>
+                <div style="
+    flex-basis: inherit;">
+                    <button type="button" class="btn" name="sendMessage" onclick="onSendMessageClicked()">Send</button>
+                </div>
             </div>
 
         </div>
@@ -124,158 +147,216 @@
 
 </div>
 
-<script>
+<script type="text/javascript">
     var requestType = {
-        sendMessage: "send_message",
-        invite: "invite"
-    }
-    var messanger = {
-        identifier: "@Model.Id",
-        selectedDialog: null,
-        dialogsLoaded: 0,
-        dialogsPortion: 10,
-        messagesLoaded: 0,
-        messagesPortion: 30,
-        consumersLoaded: 0,
-        consumersPortion: 30
-    }
-    var socket = new WebSocket("ws://localhost/Messanger/Http/MessangerHandler.ashx");
+    sendMessage: "SEND_MESSAGE",
+    addContact: "ADD_CONTACT",
+    deleteContact: "DELETE_CONTACT",
+    notify: "NOTIFY",
+    invite: "INVITE",
+    createDialog: "CREATE_DIALOG"
+}
+var messanger = {
+    identifier: "@Model.Id",
+    selectedDialog: null,
+    dialogsLoaded: 0,
+    dialogsPortion: 10,
+    messagesLoaded: 0,
+    messagesPortion: 30,
+    consumersLoaded: 0,
+    consumersPortion: 30
+}
+var socket = new WebSocket("ws://localhost/Messanger/Http/MessangerHandler.ashx");
 
-    socket.onopen = function (e) {
-        alert("socket opened");
-        socket.send(JSON.stringify({
-            "consumerGuid": messanger.identifier
-        }));
-    }
+socket.onopen = function (e) {
+    socket.send(JSON.stringify({
+        "consumerGuid": messanger.identifier
+    }));
+}
 
-    socket.onmessage = function (e) {
-        var jsonData = JSON.parse(e.data);
-        switch (jsonData.requestType) {
-            case requestType.sendMessage: {
-                var message = jsonData.message;
-                if (messanger.selectedDialog == message.dialogId) {
-                    $("#messagesRecycler")
-                        .append(
+socket.onmessage = function (e) {
+    var jsonData = JSON.parse(e.data);
+    switch (jsonData.requestType) {
+        case requestType.sendMessage: {
+            var message = jsonData.message;
+            if (messanger.selectedDialog == message.dialogId) {
+                $("#messagesRecycler")
+                    .append(
                         $("<div class='card message' style='display: block;'></div>")
-                                .text(message.content)
+                            .text(message.content)
                     );
+            }
+            break;
+        }
+        case requestType.invite: {
+            loadDialogsAsync(messanger.identifier, messanger.dialogsLoaded, messanger.dialogsPortion);
+            break;
+        }
+        case requestType.createDialog: {
+            loadDialogsAsync(messanger.identifier, messanger.dialogsLoaded, messanger.dialogsPortion);
+            inviteConsumerAsync(jsonData.dialogId, jsonData.receiverId);
+            break;
+        }
+        case requestType.addContact: {
+            var senderId = jsonData.senderId;
+            var requestStatus = jsonData.status;
+            switch (requestStatus) {
+                case "request": {
+                    //alert("get request from " + senderId);
+                    $.ajax({
+                        method: "post",
+                        url: "@Url.Action("ConsumerInfo", "Home")",
+                        data: {
+                            consumer: senderId
+                        },
+                        error: function () { },
+                        success: function (view) {
+                            $("#notificationContainer").html(view);
+                            $("#notificationModal").modal("show");
+                        }
+                    });
+                    break;
                 }
-                break;
+                case "response": {
+                    //alert("get response from " + senderId);
+                    socket.send(JSON.stringify({
+                        "requestType": requestType.createDialog,
+                        "receiverId": senderId
+                    }));
+                    break;
+                }
             }
-            case requestType.invite: {
-
-                break;
-            }
+            break;
         }
     }
+}
 
-    socket.onerror = function (e) {
-        alert(e.data);
-    }
+socket.onerror = function (e) {
+    alert(e.data);
+}
 
-    $(function () {
-        loadDialogsAsync(messanger.identifier, messanger.dialogsLoaded, messanger.dialogsPortion);
+$(function () {
+    loadDialogsAsync(messanger.identifier, messanger.dialogsLoaded, messanger.dialogsPortion);
+});
+
+function loadDialogsAsync(uid, from, portion) {
+    $.ajax({
+        url: "@Url.Action("Dialogs", "Home")",
+        method: "post",
+        data: {
+            uid: uid,
+            offset: from,
+            limit: portion
+        },
+        error: function () { },
+        success: function (view) {
+            $("#dialogsContainer").html(view);
+        }
     });
+}
 
-    function loadDialogsAsync(uid, from, portion) {
-        $.ajax({
-            url: "@Url.Action("Dialogs", "Home")",
-            method: "post",
-            data: {
-                uid: uid,
-                offset: from,
-                limit: portion
-            },
-            error: function () { },
-            success: function (view) {
-                $("#dialogsContainer").html(view);
-            }
-        });
-    }
-
-    function loadMessagesAsync(uid, dialog, from, portion) {
-        $.ajax({
-            url: "@Url.Action("Messages", "Home")",
-            method: "post",
-            data: {
-                uid: uid,
-                dialogId: dialog,
-                offset: from,
-                limit: portion
-            },
-            error: function () { },
-            success: function (view) {
-                $("#messagesContainer").html(view);
-            }
-        });
-    }
-
-    function searchConsumersAsync(name, from, portion) {
-         $.ajax({
-            url: "@Url.Action("Consumers", "Home")",
-            method: "post",
-            data: {
-                name: name,
-                offset: from,
-                limit: portion
-            },
-             success: function (view) {
-                $("#consumersContainer").html(view);
-                $("#consumersModal").modal("show");
-            },
-            error: function () {
-                alert("Unable to find others with tag " + name);
-            }
-        });
-    }
-
-    function sendMessageAsync(message) {
-        socket.send(JSON.stringify({
-            "requestType": requestType.sendMessage,
-            "message": {
-                "dialogId": messanger.selectedDialog,
-                "content": message
-            }
-        }));
-    }
-
-    function inviteConsumerAsync(consumer) {
-        socket.send(JSON.stringify({
-            "requestType": requestType.invite,
-            "receiverId": consumer
-        }));
-    }
-
-    function onSendMessageClicked() {
-        var message = $("#messageBox").val();
-        //Validaor required
-        if (messanger.selectedDialog == null ||
-            message == null ||
-            message === "") {
-            return;
+function loadMessagesAsync(uid, dialog, from, portion) {
+    $.ajax({
+        url: "@Url.Action("Messages", "Home")",
+        method: "post",
+        data: {
+            uid: uid,
+            dialogId: dialog,
+            offset: from,
+            limit: portion
+        },
+        error: function () { },
+        success: function (view) {
+            $("#messagesContainer").html(view);
         }
-        sendMessageAsync(message);
-    }
+    });
+}
 
-    function onDialogClicked(dialog) {        
-        messanger.selectedDialog = dialog;
-        if (dialog != null) {
-            loadMessagesAsync(messanger.identifier,
-                dialog,
-                messanger.messagesLoaded,
-                messanger.messagesPortion);
+function searchConsumersAsync(name, from, portion) {
+    $.ajax({
+        url: "@Url.Action("Consumers", "Home")",
+        method: "post",
+        data: {
+            name: name,
+            offset: from,
+            limit: portion
+        },
+        success: function (view) {
+            $("#consumersContainer").html(view);
+            $("#consumersModal").modal("show");
+        },
+        error: function () {
+            alert("Unable to find others with tag " + name);
         }
-    }
+    });
+}
 
-    function onInviteButtonClicked(consumer) {
-        inviteConsumerAsync(consumer);  
-    }
+function sendMessageAsync(message) {
+    socket.send(JSON.stringify({
+        "requestType": requestType.sendMessage,
+        "message": {
+            "dialogId": messanger.selectedDialog,
+            "content": message
+        }
+    }));
+}
 
-    function onSearchButtonClicked() {
-        searchConsumersAsync($("#consumersSearch").val(),
-            messanger.consumersLoaded,
-            messanger.consumersPortion);
+function inviteConsumerAsync(dialog, consumer) {
+    socket.send(JSON.stringify({
+        "requestType": requestType.invite,
+        "dialogId": dialog,
+        "receiverId": consumer
+    }));
+}
+
+function sendAddContactRequestToConsumerAsync(consumer) {
+    socket.send(JSON.stringify({
+        "requestType": requestType.addContact,
+        "status": "request",
+        "receiverId": consumer
+    }));
+}
+
+function addConsumerToContactAsync(consumer) {
+    socket.send(JSON.stringify({
+        "requestType": requestType.addContact,
+        "status": "response",
+        "receiverId": consumer
+    }));
+}
+
+function onSendMessageClicked() {
+    var message = $("#messageBox").val();
+    if (messanger.selectedDialog == null ||
+        message == null ||
+        message === "") {
+        return;
     }
+    sendMessageAsync(message);
+}
+
+function onDialogClicked(dialog) {
+    messanger.selectedDialog = dialog;
+    if (dialog != null) {
+        loadMessagesAsync(messanger.identifier,
+            dialog,
+            messanger.messagesLoaded,
+            messanger.messagesPortion);
+    }
+}
+
+function onAddContactButtonClicked(consumer) {
+    sendAddContactRequestToConsumerAsync(consumer);
+}
+
+function onAddContactConfirmButtonClicked(consumer) {
+    addConsumerToContactAsync(consumer);
+}
+
+function onSearchButtonClicked() {
+    searchConsumersAsync($("#consumersSearch").val(),
+        messanger.consumersLoaded,
+        messanger.consumersPortion);
+}
 </script>
-
 

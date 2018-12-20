@@ -7,5 +7,9 @@ using System.Web;
 
 namespace Messanger.Repositories {
     public interface IContactRepository : IRepository<Contact, int> {
+
+        Contact GetByRelatedConsumersId(string initialConsumerId, string relatedConsumerId);
+
+        void UpdateStatus(Contact model, string newStatus);
     }
 }

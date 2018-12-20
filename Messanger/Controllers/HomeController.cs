@@ -31,6 +31,7 @@ namespace Messanger.Controllers
 
         // GET: Home
         [HttpGet]
+        [Authorize]
         public ActionResult Index(IndexRequest request) {
             Consumer consumer = _consumerRepository
                 .GetById(request.Consumer);
@@ -40,6 +41,7 @@ namespace Messanger.Controllers
             return View(consumer);
         }
 
+        [Authorize]
         public ActionResult Dialogs(DialogsRequest request) {
             ICollection<Dialog> dialogs = _dialogRepository
                 .GetDialogsByConsumerIdWithOffsetAndLimit(request.Uid, request.Offset, request.Limit);
@@ -49,12 +51,14 @@ namespace Messanger.Controllers
             return PartialView(dialogs);
         }
 
+        [Authorize]
         public ActionResult Messages(MessagesRequest request) {
             ICollection<Message> messages = _messageRepository
                 .GetMessagesByDialogIdWithOffsetAndLimit(request.DialogId, request.Offset, request.Limit);
             return PartialView(messages);
         }
 
+        [Authorize]
         public ActionResult Consumers(ConsumersRequest request) {
             ICollection<Consumer> consumers = _consumerRepository
                 .GetMatchNameWithOffsetAndLimit(request.Name, request.Offset, request.Limit);
@@ -62,6 +66,16 @@ namespace Messanger.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             return PartialView(consumers);
+        }
+
+        [Authorize]
+        public ActionResult ConsumerInfo(ConsumerInfoRequest request) {
+            Consumer consumer = _consumerRepository
+                .GetById(request.Consumer);
+            if (consumer == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return PartialView(consumer);
         }
     }
 }

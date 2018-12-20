@@ -1,4 +1,6 @@
-﻿<div class="mdc-card" style="
+﻿@model Messanger.Http.Models.IdentificationRequest
+
+<div class="mdc-card" style="
     height: auto;
     width: 520px;
     position: absolute;
@@ -17,45 +19,49 @@
             <div>
                 <h2>SIGN UP</h2>
             </div>
-            <div class="mdc-text-field mdc-text-field--outlined" style="
-    height: 48px;
-    margin-top: 24px;">
-                <input type="text" id="tf-outlined" class="mdc-text-field__input" name="name">
-                <label for="tf-outlined" class="mdc-floating-label">Your Name</label>
-                <div class="mdc-notched-outline__idle">
-
-                </div>
+            <div style=" 
+    margin-top: 20px;
+    width: inherit;
+    margin: auto;">
+                @Html.ValidationSummary()
             </div>
-            <div class="mdc-text-field mdc-text-field--outlined" style="
+            <div style="
     height: 48px;
+    flex-direction: column;
     margin-top: 24px;">
-                <input type="text" id="tf-outlined" class="mdc-text-field__input" name="password">
-                <label for="tf-outlined" class="mdc-floating-label">Your Password</label>
-                <div class="mdc-notched-outline__idle">
-
-                </div>
+                <label for="userName">Name</label>
+                <input type="text" id="userName" class="form-control" name="name">
             </div>
-            <div class="mdc-text-field mdc-text-field--outlined" style="
+            <div style="
     height: 48px;
+    flex-direction: column;
     margin-top: 24px;">
-                <input type="text" id="tf-outlined" class="mdc-text-field__input" name="confirmPassword">
-                <label for="tf-outlined" class="mdc-floating-label">Confirm Password</label>
-                <div class="mdc-notched-outline__idle">
-
-                </div>
+                <label for="pass">Password</label>
+                <input type="password" id="pass" class="form-control" name="password">
             </div>
-            <div class="mdc-text-field mdc-text-field--outlined" style="
+            <div style="
     height: 48px;
+    flex-direction: column;
     margin-top: 24px;">
-                <input type="text" id="tf-outlined" class="mdc-text-field__input" name="phoneNumber">
-                <label for="tf-outlined" class="mdc-floating-label">Your Phone</label>
-                <div class="mdc-notched-outline__idle">
-
-                </div>
+                <label for="confirmPass">Confirm password</label>
+                <input type="password" id="confirmPass" class="form-control" name="confirmPassword">
+            </div>
+            <div style="
+    height: 48px;
+    flex-direction: column;
+    margin-top: 24px;">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" class="form-control" name="phoneNumber">
             </div>
             <div class="mdc-card__action-buttons" style="
     margin-top: 24px;">
-                <button type="submit" class="mdc-button">Sign Up</button>
+                <button type="submit" class="btn">Sign Up</button>
+            </div>
+            <div style="
+    width: inherit;
+    margin: auto;">
+                <a class="nav-link" href="@Url.Action("SignIn", "Auth")" style="
+    text-decoration: none;">I have an account</a>
             </div>
         </div>
     </form>

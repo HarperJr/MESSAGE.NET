@@ -46,15 +46,11 @@ namespace Messanger.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         OwnerId = c.String(maxLength: 128),
-                        ShortcutId = c.String(maxLength: 64),
-                        Title = c.String(maxLength: 32),
                         InitTime = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Consumers", t => t.OwnerId)
-                .ForeignKey("dbo.Multimedias", t => t.ShortcutId)
-                .Index(t => t.OwnerId)
-                .Index(t => t.ShortcutId);
+                .Index(t => t.OwnerId);
             
             CreateTable(
                 "dbo.Consumers",
@@ -127,7 +123,6 @@ namespace Messanger.Migrations
             DropForeignKey("dbo.AttachedMultimedias", "MessageId", "dbo.Messages");
             DropForeignKey("dbo.Messages", "SenderId", "dbo.Consumers");
             DropForeignKey("dbo.Messages", "DialogId", "dbo.Dialogs");
-            DropForeignKey("dbo.Dialogs", "ShortcutId", "dbo.Multimedias");
             DropForeignKey("dbo.Dialogs", "OwnerId", "dbo.Consumers");
             DropForeignKey("dbo.Consumers", "AvatarId", "dbo.Multimedias");
             DropIndex("dbo.DialogParticipants", new[] { "InvitorId" });
@@ -136,7 +131,6 @@ namespace Messanger.Migrations
             DropIndex("dbo.Contacts", new[] { "RelatedConsumerId" });
             DropIndex("dbo.Contacts", new[] { "InitialConsumerId" });
             DropIndex("dbo.Consumers", new[] { "AvatarId" });
-            DropIndex("dbo.Dialogs", new[] { "ShortcutId" });
             DropIndex("dbo.Dialogs", new[] { "OwnerId" });
             DropIndex("dbo.Messages", new[] { "SenderId" });
             DropIndex("dbo.Messages", new[] { "DialogId" });

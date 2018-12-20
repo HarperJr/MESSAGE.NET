@@ -1,17 +1,16 @@
 ﻿@model ICollection<Messanger.Data.Models.Consumer>
 
-<div>
-    <ul>
+<div class="container" style="
+    flex-direction:column;">
         @{
             foreach (var consumer in Model) {
-                <li class="ul-li-block">
+                <div>
                     <div>
                         <p class="text-monospace text-center">@consumer.Name</p>
-                        <button class="btn" type="button" name="sendInvition" onclick="onInviteButtonClicked('@consumer.Id')">Add</button>
                     </div>
-                </li>
+                     <button class="btn" type="button" name="addContact" onclick="onAddContactButtonClicked('@consumer.Id')">Add</button>
+                 </div>
             }
         }
-    </ul>
 </div>
 

@@ -364,5 +364,7 @@ C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.C
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.CopyComplete
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.dll
 C:\Users\docto\Desktop\cource\MESSAGE.NET\Messanger\obj\Debug\Messanger.pdb
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\docto\Desktop\MESSAGE.NET\Messanger\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\obj\Debug\Messanger.Migrations.Init.resources
 C:\Users\docto\Desktop\MESSAGE.NET\Messanger\obj\Debug\Messanger.csproj.GenerateResource.cache
