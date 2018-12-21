@@ -22,6 +22,7 @@ namespace Messanger.Database.Dao {
                 .Select(participant => participant.Dialog)
                 .Union(_localDbContext.Dialogs
                 .Where(dialog => dialog.Owner.Id.Equals(consumerId)))
+                .OrderBy(dialog => dialog.InitTime)
                 .Take(limit)
                 .ToList();
         }

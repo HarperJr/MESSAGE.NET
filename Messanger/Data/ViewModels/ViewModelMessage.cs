@@ -7,10 +7,10 @@ using System.Web;
 namespace Messanger.Data.ViewModels {
     public class ViewModelMessage {
 
-        public Message MessageModel { get; set; } 
+        public string SenderName { get; set; }
 
-        public Consumer SenderModel { get; set; }
+        public string Content { get; set; } 
 
-        public ICollection<string> AttachedMultimedias { get; set; }
+        public DateTime Time { get; set; }
     }
 }

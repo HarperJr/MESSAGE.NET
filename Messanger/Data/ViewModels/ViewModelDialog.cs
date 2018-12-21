@@ -7,8 +7,10 @@ using System.Web;
 namespace Messanger.Data.ViewModels {
     public class ViewModelDialog {
 
-        public Dialog DialogModel  { get; set; }
+        public string DialogId { get; set; }
 
-        public ICollection<Participant> ParticipantModels { get; set; }
+        public DateTime InitTime { get; set; }
+
+        public string DialogTitle { get; set; }
     }
 }

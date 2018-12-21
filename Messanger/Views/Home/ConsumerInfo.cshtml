@@ -1,6 +1,14 @@
 ﻿@model Messanger.Data.Models.Consumer
 
-<div>
-    <h4>@Model.Name</h4>
-    <button class="btn" onclick="onAddContactConfirmButtonClicked('@Model.Id')">Confirm</button>
+<div style="
+        margin: 16px;
+        flex: 1;
+        flex-direction: row;">
+    <div style="margin: auto; justify-content: flex-start;">
+        <h4><b>@Model.Name</b></h4>
+        <p style="margin-left: 16px;">@Model.PhoneNumber</p>
+    </div>
+    <div style="justify-content: flex-end; margin-right: 16px;">
+        <button class="btn" onclick="onAddContactConfirmButtonClicked('@Model.Id')">Confirm</button>
+    </div>    
 </div>

@@ -26,6 +26,10 @@ namespace Messanger.Repositories {
                 _participantDao.GetParticipantsByDialogId(dialogId));
         }
 
+        public ICollection<string> GetParticipantNamesByDialogId(string dialogId) {
+            return _participantDao.GetParticipantNamesByDialogId(dialogId);
+        }
+
         public void Delete(Participant model) {
             _participantDao.Delete(_mapper.Map<DialogParticipant>(model));
         }

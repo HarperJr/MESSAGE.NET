@@ -4,11 +4,19 @@
     flex-direction:column;">
         @{
             foreach (var consumer in Model) {
-                <div>
-                    <div>
-                        <p class="text-monospace text-center">@consumer.Name</p>
+                <div style="
+        margin: 16px;
+        flex: 1;
+        flex-direction: row;" >
+                    <div style="margin: auto; justify-content: flex-start;">
+                        <h4><b>@consumer.Name</b></h4>
+                        <p style="margin-left: 16px;">@consumer.PhoneNumber</p>
                     </div>
-                     <button class="btn" type="button" name="addContact" onclick="onAddContactButtonClicked('@consumer.Id')">Add</button>
+                    <div style="justify-content: flex-end; margin-right: 16px;">
+                        <button class="btn" type="button" name="addContact" onclick="onAddContactButtonClicked('@consumer.Id')">
+                        Add to contacts
+                        </button>
+                    </div>
                  </div>
             }
         }

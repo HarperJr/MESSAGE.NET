@@ -20,7 +20,7 @@ namespace Messanger.Http {
     /// </summary>
     public class MessangerHandler : IHttpHandler {
 
-        private static Dictionary<string, WebSocket> _sockets = new Dictionary<string, WebSocket>();
+        private static ConcurrentDictionary<string, WebSocket> _sockets = new ConcurrentDictionary<string, WebSocket>();
 
         private readonly IMessageRepository _messageRepository;
         private readonly IDialogRepository _dialogRepository;
@@ -48,7 +48,10 @@ namespace Messanger.Http {
             JObject request = await GetJsonRequestAsync(socket);
             string consumerGuid = request.GetValue("consumerGuid").Value<string>();
 
-            _sockets.Add(consumerGuid, socket);
+            if (_sockets.ContainsKey(consumerGuid)) {
+                _sockets.TryRemove(consumerGuid, out WebSocket removedSocket);
+            }
+            _sockets.TryAdd(consumerGuid, socket);
 
             while (true) {
                 if (socket.State.Equals(WebSocketState.Open)) {
@@ -96,8 +99,8 @@ namespace Messanger.Http {
                             }
                     }
                 } else {
-                    if (_sockets.Remove(consumerGuid)) {
-                        await socket.CloseAsync(
+                    if (_sockets.TryRemove(consumerGuid, out WebSocket removedSocket)) {
+                        await removedSocket.CloseAsync(
                             WebSocketCloseStatus.NormalClosure, "closing", CancellationToken.None);
                     }
                     break;
@@ -178,6 +181,11 @@ namespace Messanger.Http {
                     Id = dialogId,
                     InitTime = DateTime.UtcNow,
                     OwnerId = guid
+                });
+                _participantRepository.Insert(new Participant {
+                    DialogId = dialogId,
+                    InvitorId = receiverId,
+                    ParticipantId = guid
                 });
                 jsonRequest.Add("dialogId", dialogId);
                 await SendJsonResponseAsync(getSockets(guid), jsonRequest);

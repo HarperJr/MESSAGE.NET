@@ -70,11 +70,11 @@
         <div id="container" style="
     position:inherit;
     margin:16px;
-    background:#808080">
+    background:#dddddd">
             <ul>
                 <li class="ul-li-block">
-                    <div>
-                        @Model.Name
+                    <div style="flex-basis: 32px; flex-direction: row;">
+                        <p><b>@Model.Name</b></p>
                     </div>
                 </li>
             </ul>
@@ -83,10 +83,9 @@
         <div id="dialogsContainer" style="
     position:inherit;
     margin:16px;
-    background:#0094ff">
-
+    background:#dddddd">
+           
         </div>
-
     </div>
 
     <div id="content" style="
@@ -99,17 +98,21 @@
 
             <div id="contentHeader" style="
     position:inherit;
-    width:inherit;
-    flex-basis: 64px;">
-                <div style="
-    float:right;
-    justify-content:center">
+    flex-direction: column;
+    flex-basis: 90px;">
+                <div>
 
-                    <div>
-                        <form>
-                            <input id="consumersSearch" type="search" placeholder="Search others..." name="name" />
+                    <div style="
+    margin: 16px;
+    flex: 1;
+    justify-content: flex-end; ">
+                        <div style="
+    margin-right: 16px;">
+                            <input id="consumersSearch" type="text" placeholder="Search others..." name="name" />
+                        </div>
+                        <div>
                             <button type="button" onclick="onSearchButtonClicked()" class="btn">Search</button>
-                        </form>
+                        </div>
                     </div>
 
                 </div>
@@ -132,8 +135,8 @@
                  width: inherit">
                 <div style="
     margin-right: 16px;
-    flex:1;">
-                    <input id="messageBox" type="text" style="width: inherit;" />
+    flex: 1;">
+                    <input id="messageBox" type="text" style="flex: 1;" />
                 </div>
                 <div style="
     flex-basis: inherit;">
@@ -349,9 +352,10 @@ function onAddContactButtonClicked(consumer) {
     sendAddContactRequestToConsumerAsync(consumer);
 }
 
-function onAddContactConfirmButtonClicked(consumer) {
-    addConsumerToContactAsync(consumer);
-}
+    function onAddContactConfirmButtonClicked(consumer) {
+        $("#notificationModal").modal("hide");
+        addConsumerToContactAsync(consumer);
+    }
 
 function onSearchButtonClicked() {
     searchConsumersAsync($("#consumersSearch").val(),

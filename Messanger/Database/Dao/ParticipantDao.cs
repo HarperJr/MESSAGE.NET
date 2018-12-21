@@ -26,16 +26,29 @@ namespace Messanger.Database.Dao {
                 .ToList();
         }
 
+        public ICollection<string> GetParticipantNamesByDialogId(string dialogId) {
+            return _localDbContext.DialogParticipants
+                .Where(participant => participant.Dialog.Id.Equals(dialogId))
+                .Join(_localDbContext.Consumers, p => p.Participant.Id, c => c.Id, (p, c) => new { c.Name })
+                .Select(consumer => consumer.Name)
+                .ToList();
+        }
+
         public void Delete(DialogParticipant entity) {
-            throw new NotImplementedException();
+            _localDbContext.DialogParticipants
+                .Remove(entity);
+            _localDbContext.SaveChanges();
         }
 
         public DialogParticipant GetById(int id) {
-            throw new NotImplementedException();
+            return _localDbContext.DialogParticipants
+                .Find(id);
         }
 
         public void Insert(DialogParticipant entity) {
-            throw new NotImplementedException();
+            _localDbContext.DialogParticipants
+                .Add(entity);
+            _localDbContext.SaveChanges();
         }
 
     }

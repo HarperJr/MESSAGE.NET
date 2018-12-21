@@ -12,5 +12,7 @@ namespace Messanger.Repositories {
         Participant GetParticipantById(string participantId);
 
         ICollection<Participant> GetParticipantsByDialogId(string dialogId);
+
+        ICollection<string> GetParticipantNamesByDialogId(string dialogId);
     }
 }

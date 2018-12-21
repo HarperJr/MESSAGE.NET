@@ -1,16 +1,20 @@
-﻿@model ICollection<Messanger.Data.Models.Message>
+﻿@model ICollection<Messanger.Data.ViewModels.ViewModelMessage>
 
 <div id="messagesRecycler" class="pre-scrollable" style="
     position: relative;
     width: inherit; 
     overflow-y: scroll;
-    flex-direction: column; ">
+    flex-direction: column;
+    flex: 1;">
         @{
             foreach (var message in Model) {
-                <div class="card message" style="
+    <div class="card message" style="
+        flex-direction: column;
         display: block; ">
-                    <p>@message.Content</p>
-                </div>
+        <p><b>@message.SenderName</b></p>
+        <p>@message.Content</p>
+        <p>@message.Time</p>
+    </div>
             }
         }
 </div>
